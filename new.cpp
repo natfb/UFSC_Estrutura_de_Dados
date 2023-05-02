@@ -3,6 +3,7 @@
 using namespace std;
 
 int main(){
+    //make a void funtion that prints hello world
 
     string name("joe");
     int find = name.find("o");
