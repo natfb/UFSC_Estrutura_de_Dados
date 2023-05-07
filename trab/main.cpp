@@ -1,14 +1,21 @@
+/*
+
+Trabalho II
+
+Disciplina: Linguagem de Programação II.
+Estudantes: Natalia Farias, Alice Motin.
+
+*/
+
 #include "polygon.hpp"
 #include <fstream>
 
-//passar pro github  e instalar valgrind
 Point2D* ReadShape2DFile(string path, size_t &numberOfVertex);
 
 int main()
 {
     cout << "Enter with a shape file name to read (bi-dimensional): ";
     string path; 
-    //path = "square.txt"; 
     cin >> path;
 
     size_t numberOfVertex = 0;
@@ -20,24 +27,19 @@ int main()
     }
     else
     {
-        cout << "YESSSS, filename " << path << " has " << numberOfVertex << " points" << endl;
-        for(size_t i=0; i<numberOfVertex; i++)
-        {
-            cout << "Point " << i << " -> x: " << shapeVertex[i].GetX() << "  y: " << shapeVertex[i].GetY() << endl;
-        }
+        cout << "File read complete." <<  endl <<  endl;
     }
 
-    //calcular perimetro com polygon
+    //calcular area com polygon
     Polygon Shape(shapeVertex, numberOfVertex);
+    cout << "Shape Area: " << Shape.CalcArea() << endl;
+
+    //calcular perimetro com polygon
     cout << "Shape Perimeter: " << Shape.CalcPerimeter() << endl;
     
-    //calcular perimeter com polygon
-    cout << "Shape Area: " << Shape.CalcArea(numberOfVertex) << endl;
-
-    //alocou ? alguem alocou e passou para ti ?   libere o seu lixo aqui !
+    //desalocar memoria
     delete [] shapeVertex;
-    //shapeVertex = NULL;
-    
+
     return 0;
 }
 
@@ -56,8 +58,7 @@ Point2D* ReadShape2DFile(string path, size_t &numberOfVertex)
     {
         fileReader >> x;
         fileReader >> y;
-        pointList[i].SetX(x);
-        pointList[i].SetY(y);
+        pointList[i].SetXY(x,y);
     }
 
     return pointList;
