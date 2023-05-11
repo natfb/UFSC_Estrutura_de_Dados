@@ -1,0 +1,32 @@
+.ORG 00h 10h
+06h E0h 
+0Eh 00h 
+CDh 2Eh 00h 
+C3h 07h 10h 
+.ORG 24h 00h
+DBh 00h 
+FEh 00h 
+CAh 2Dh 00h 
+02h 
+03h 
+C9h 
+21h 00h E0h 
+11h E8h E3h 
+3Eh 20h 
+77h 
+23h 
+CDh 44h 00h 
+FEh 01h 
+CAh 43h 00h 
+C3h 34h 00h 
+C9h 
+7Bh 
+BDh 
+C2h 51h 00h 
+7Ah 
+BCh 
+C2h 51h 00h 
+3Eh 01h 
+C9h 
+3Eh 00h 
+C9h 

@@ -1,0 +1,21 @@
+.ORG E8h 03h
+F5h 
+79h 
+83h 
+4Fh 
+78h 
+8Ah 
+47h 
+F1h 
+C9h 
+F5h 
+D5h 
+7Ah 
+16h 00h 
+CAh 00h 04h 
+CDh E8h 03h 
+3Dh 
+C3h F6h 03h 
+D1h 
+F1h 
+C9h 

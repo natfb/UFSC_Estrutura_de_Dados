@@ -1,0 +1,25 @@
+.ORG 00h 00h
+3Ah 50h 20h 
+47h 
+3Ah 51h 20h 
+48h 
+50h 
+90h 
+D2h 11h 00h 
+80h 
+C3h 25h 00h 
+14h 
+27h 
+FEh 00h 
+CAh 25h 00h 
+EBh 
+78h 
+44h 
+67h 
+0Ch 
+FEh 0Ah 
+D2h 25h 00h 
+C3h 09h 00h 
+7Dh 
+32h 52h 20h 
+76h 

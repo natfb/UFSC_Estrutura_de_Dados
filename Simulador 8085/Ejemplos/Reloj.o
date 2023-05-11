@@ -1,0 +1,64 @@
+.DATA DDh 00h
+77h 44h 3Eh 6Eh 4Dh 6Bh 7Bh 46h 7Fh 4Fh 
+F7h C4h BEh EEh CDh EBh FBh C6h FFh CFh 
+.ORG 00h 10h
+06h 00h 
+0Eh DDh 
+16h 00h 
+1Eh DDh 
+2Eh E7h 
+26h DDh 
+3Eh 77h 
+D3h 06h 
+D3h 07h 
+D3h 04h 
+3Eh F7h 
+D3h 05h 
+C3h 18h 10h 
+.ORG 24h 00h
+0Ah 
+FEh 4Fh 
+CAh 2Fh 00h 
+03h 
+0Ah 
+D3h 07h 
+C9h 
+0Eh DDh 
+0Ah 
+D3h 07h 
+1Ah 
+FEh 6Bh 
+CAh 3Fh 00h 
+13h 
+1Ah 
+D3h 06h 
+C9h 
+1Eh DDh 
+1Ah 
+D3h 06h 
+51h 
+4Dh 
+0Ah 
+FEh CFh 
+CAh 54h 00h 
+03h 
+0Ah 
+D3h 05h 
+69h 
+4Ah 
+50h 
+C9h 
+2Eh E7h 
+51h 
+4Dh 
+0Ah 
+D3h 05h 
+51h 
+4Ch 
+03h 
+0Ah 
+D3h 04h 
+61h 
+4Ah 
+50h 
+C9h 

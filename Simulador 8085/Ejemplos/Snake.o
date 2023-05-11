@@ -1,0 +1,165 @@
+.DATA 00h 00h
+10h 
+90h BFh 
+00h 
+80h A5h 00h B0h 00h C5h 00h D0h 
+.ORG 00h 05h
+21h 90h BFh 
+CDh 03h 06h 
+DBh 00h 
+C3h 06h 05h 
+7Bh 
+BDh 
+C2h 18h 05h 
+7Ah 
+BCh 
+C2h 18h 05h 
+3Eh 01h 
+C9h 
+3Eh 00h 
+C9h 
+7Ah 
+BCh 
+FAh 26h 05h 
+CAh 29h 05h 
+3Eh 00h 
+C9h 
+3Eh 01h 
+C9h 
+7Bh 
+BDh 
+FAh 26h 05h 
+3Eh 00h 
+C9h 
+7Ch 
+BAh 
+FAh 26h 05h 
+CAh 3Fh 05h 
+3Eh 00h 
+C9h 
+3Eh 01h 
+C9h 
+7Dh 
+BBh 
+FAh 3Ch 05h 
+3Eh 00h 
+C9h 
+21h 00h A0h 
+11h 80h DEh 
+3Eh 00h 
+77h 
+23h 
+CDh 0Bh 05h 
+FEh 01h 
+CAh 5Ch 05h 
+C3h 4Dh 05h 
+C9h 
+FEh 1Eh 
+CCh 89h 05h 
+FEh 1Fh 
+CCh 90h 05h 
+FEh 11h 
+CCh 97h 05h 
+FEh 10h 
+CCh 9Eh 05h 
+C9h 
+11h 00h A0h 
+CDh 31h 05h 
+FEh 01h 
+CAh 2Bh 06h 
+11h 80h DEh 
+CDh 1Bh 05h 
+FEh 01h 
+CAh 2Bh 06h 
+C9h 
+11h 60h FFh 
+CDh A5h 05h 
+C9h 
+11h A0h 00h 
+CDh A5h 05h 
+C9h 
+11h FFh FFh 
+CDh A5h 05h 
+C9h 
+11h 01h 00h 
+CDh A5h 05h 
+C9h 
+19h 
+CDh 72h 05h 
+7Eh 
+FEh FFh 
+CAh 2Bh 06h 
+FEh 7Fh 
+CCh 03h 06h 
+36h FFh 
+CDh BAh 05h 
+C9h 
+F5h 
+3Ah 00h 00h 
+FEh 00h 
+CAh C9h 05h 
+3Dh 
+32h 00h 00h 
+F1h 
+C9h 
+E5h 
+D5h 
+2Ah 01h 00h 
+11h 60h FFh 
+19h 
+7Eh 
+FEh FFh 
+CAh F9h 05h 
+2Ah 01h 00h 
+11h A0h 00h 
+19h 
+7Eh 
+FEh FFh 
+CAh F9h 05h 
+2Ah 01h 00h 
+11h FFh FFh 
+19h 
+7Eh 
+FEh FFh 
+CAh F9h 05h 
+2Ah 01h 00h 
+11h 01h 00h 
+19h 
+3Eh 00h 
+77h 
+22h 01h 00h 
+D1h 
+E1h 
+F1h 
+C9h 
+F5h 
+D5h 
+3Ah 00h 00h 
+C6h 10h 
+32h 00h 00h 
+3Ah 03h 00h 
+07h 
+5Fh 
+0Fh 
+16h 00h 
+3Ch 
+E6h 03h 
+32h 03h 00h 
+E5h 
+21h 04h 00h 
+19h 
+5Eh 
+23h 
+56h 
+EBh 
+3Eh 7Fh 
+77h 
+E1h 
+D1h 
+F1h 
+C9h 
+76h 
+.ORG 3Ch 00h
+CDh 5Dh 05h 
+FBh 
+C9h 

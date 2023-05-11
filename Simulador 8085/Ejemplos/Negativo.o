@@ -1,0 +1,16 @@
+.ORG 00h 01h
+26h A0h 
+2Eh 00h 
+3Eh FFh 
+96h 
+77h 
+23h 
+3Eh DEh 
+BCh 
+CAh 12h 01h 
+C3h 04h 01h 
+3Eh 80h 
+BDh 
+CAh 1Bh 01h 
+C3h 04h 01h 
+76h 

@@ -1,0 +1,28 @@
+.ORG 00h 10h
+0Eh 80h 
+50h 
+79h 
+D3h 00h 
+C3h 03h 10h 
+.ORG 3Ch 00h
+7Ah 
+FEh 00h 
+C2h 4Fh 00h 
+79h 
+1Fh 
+4Fh 
+79h 
+FEh 00h 
+C2h 5Ch 00h 
+0Eh 01h 
+16h 01h 
+79h 
+17h 
+4Fh 
+79h 
+FEh 00h 
+C2h 5Ch 00h 
+0Eh 80h 
+16h 00h 
+FBh 
+C9h 
