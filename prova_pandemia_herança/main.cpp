@@ -1,11 +1,12 @@
+#include "scheduler.hpp"
 #include "policyUm.hpp"
 #include "policyDois.hpp"
 
 int main(){
-
-    int choice, id, task;
+    size_t id;
+    int choice, task;
     Scheduler tasks;
-    policy1 p1;
+    Scheduler *p1 = new policy1();
     policy2 p2;
     while(choice != 5){
         cout << "1 schedude task" << endl; 
@@ -23,12 +24,14 @@ int main(){
             tasks.addInfo(id);
             break;
         case 2:
-            task = p1.getTask();
-            cout << "task to perform" << task << endl;
+            task = p1->getTask();
+            //task = tasks.getTask();
+            cout << "Task to perform: " << task << endl;
             break;
         case 3:
-            task = p2.getTask();
-            cout << "task to perform" << task << endl;
+            //task = p2.getTask();
+            p2.printInfo();
+            cout << "task to perform " << task << endl;
             break;
         case 4:
             tasks.printInfo();
