@@ -1,12 +1,12 @@
-/*#include "scheduler.hpp"
+#include "scheduler.hpp"
 
 class policy2 : public Scheduler{
     
     public:
     int getTask(){
-            int id = Scheduler::getTaskId(Scheduler::getSize());
-            //taskId.erase(taskId.begin() + 0);
-
-            return id;
-        }
-};*/
+        int sizee = taskId.size();
+        int id = taskId.at(sizee - 1);
+        taskId.erase(taskId.begin() + sizee - 1);
+        return id;
+    }
+};
