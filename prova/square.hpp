@@ -11,4 +11,8 @@ class Square : public Shape2D
         float perimeter() {
             return 4 * edge;
         };
+        
+        string getType() {
+            return "Square";
+        };
 };

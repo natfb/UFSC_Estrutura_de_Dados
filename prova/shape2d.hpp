@@ -13,7 +13,7 @@ class Shape2D
     public:
         Shape2D(){};
 
-    virtual float perimeter()  = 0;
+    virtual float perimeter() = 0;
     virtual string getType() = 0;     
 };
 

@@ -11,4 +11,7 @@ class Circle : public Shape2D
         float perimeter(){
             return 2 * ratio * 3.14;
         };
+        string getType(){
+            return "Circle";
+        }
 };

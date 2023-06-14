@@ -8,19 +8,13 @@ class Polygon : public Shape2D
     vector< Point2D > m_vertex;
 
     public:
-        Polygon() :  Shape2D() {};
+        Polygon() : Shape2D() {};
         Polygon(vector < Point2D > listOfPoint) : m_vertex(listOfPoint) {};
         ~Polygon() {};
 
-        void SetVertex(vector< Point2D > listOfPoint);
-        void AddPoint2D(Point2D pt);
-
-        bool ClearPolygon();
-        float CalcPerimeter();
-
         float perimeter() {
             float per=0;
-            for(size_t i=0; i<m_vertex.size()-1; i++)
+            for(size_t i=0; i < m_vertex.size() - 1; i++)
             {
                 Point2D pt1 = m_vertex.at(i);
                 Point2D pt2 = m_vertex.at(i+1);
@@ -35,5 +29,9 @@ class Polygon : public Shape2D
                 (pt1.getY()-pt2.getY())*(pt1.getY()-pt2.getY()));
 
             return per;
+        };
+
+        string getType() {
+            return "Polygon";
         };
 };

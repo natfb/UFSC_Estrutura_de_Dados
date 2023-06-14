@@ -7,12 +7,14 @@
 
 int main(){
     bool quite = false;
-    string answer;
-    int choice, x, y;
+    string answer, type;
+    int choice, x, y, c = 0;
     float perimeter;
     size_t radius, edge, size;
+
     vector <Shape2D*> shapes;
     vector< Point2D > listOfPoints;
+
     while(choice != 6){
         cout << "UFSC SHAPE MANAGER" << endl;
         cout << "-----------------------------------" << endl;
@@ -32,7 +34,17 @@ int main(){
             shapes.push_back(new Circle(radius));
             break;
         case 2:
-            //Triangle *triangle = new Triangle();
+            while(!quite){
+                cout << "inset vertice X: ";
+                cin >> x;
+                cout << "inset vertice Y: ";
+                cin >> y;
+                listOfPoints.push_back(Point2D(x,y));
+                c++;
+                if(c == 3){
+                    quite = true;
+                }
+            }
             shapes.push_back(new Triangle());
             break;
 
@@ -62,7 +74,8 @@ int main(){
         case 5:
             for(int i = 0; i < shapes.size(); i++){
                 perimeter = shapes[i]->perimeter();
-                cout << "Vector Position " << i << ", Perimeter: " << perimeter << endl;
+                type = shapes[i]->getType();
+                cout << "Vector Position " << i << " - "<<type << " - Perimeter: " << perimeter << endl;
             }
             break;
         case 6:
