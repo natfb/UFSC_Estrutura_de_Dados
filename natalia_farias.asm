@@ -1,9 +1,8 @@
 ; 0,5 us * x = 1ms
 ; x = 1,0 ms / 0,5us
 ; x = 2000 
-; loop interno 7 + 1 * (4 + 10) - 3 = 18
-; loop externo  7 + z * (4 + 10 + 18) - 3 = 1990
-; z = 43  =  2BH
+; loop interno 7 + x * (4 + 10) - 3 = 18
+; X = 141 8BH
 ; 1990 + 10 (RET) = 2000
 
 
@@ -20,8 +19,7 @@
 	Digito8 7Fh		; Valor hex para o display mostrar o digito 8
 	Digito9 4Fh		; Valor hex para o display mostrar o digito 9
 	dig 77h	
-	atraso1 2bH		; Valor para delay. Escolher diferente de 00h
-	atraso2 01H		; Valor para delay. Escolher diferente de 00h
+	atraso1 01H		; Valor para delay. Escolher diferente de 00h
 	SegundoU 05h		; Definindo porta de sa?da para digito da unidade do segundo
 	SegundoD 04h		; Definindo porta de sa?da para digito da dezena do segundo
 	MinutoU 03h		; Definindo porta de sa?da para digito da unidade do minuto
@@ -31,7 +29,7 @@
 
 
 .data EndDigito		; Salvando os valores hex no endere?o indicado
-	DB dig, Digito0, Digito1, Digito2, Digito3, Digito4
+	DB Digito0, Digito1, Digito2, Digito3, Digito4
 	DB Digito5, Digito6, Digito7, Digito8, Digito9	
 
 	
@@ -221,7 +219,9 @@ L13:  inX b
 	LDAX B
 	CPI Digito9	; Comparar com o valor hex do d?gito 9
 	JZ hora_dezena	;	
-	
+	CPI Digito4
+	jz ZERAR_HORA
+zerarr:
 	Lxi b, EndDigito
 	lxi h, a020h
 	mov a, m	
@@ -234,8 +234,7 @@ L14:
     	JNZ L14         
 
 	LDAX B			
-	OUT HoraU
-	sta a023h				
+	OUT HoraU				
 	RET
 
 hora_dezena:
@@ -249,19 +248,8 @@ L15:  inX b
     	JNZ L15	
 	
 	LDAX B	
-	OUT HoraU	
-	
-	LXI B, EndDigito
-	lxi h, a021h
-	mov a, m	
+	OUT HoraU		
 
-L16:  inX b    
-    	dcr a        
-    	JNZ L16
-	
-	LDAX B	
-	CPI Digito2	   ; Comparar com o valor hex do d?gito 9
-	jz ZERAR_HORA	;
 	Lxi b, EndDigito
 	lxi h, a021h
 	mov a, m
@@ -279,6 +267,16 @@ L17:
 	RET
 
 ZERAR_HORA:
+	lxi h, a023h
+	MOV A, M
+	inr a
+	sta a023h
+	cpi 03
+	jnz zerarr
+	
+	mvi m, 01h
+	mov a, m
+
 	LXI B, EndDigito	; Resetar o endere?o apontado pelo par BC	
 	lxi h, a021h
 	mvi m, 01h
@@ -297,10 +295,6 @@ L19:  inX b
 delay:			; Rotina de Delay
 	MVI H, atraso1	
 loop1:
-	MVI L, atraso2
-loop2:
-	DCR L
-	JNZ loop2
 	DCR H
 	JNZ loop1
 	RET
