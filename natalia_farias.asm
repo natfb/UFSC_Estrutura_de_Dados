@@ -29,15 +29,15 @@
 
 
 .data EndDigito		; Salvando os valores hexacimais no endereço indicado
-	DB dig, Digito0, Digito1, Digito2, Digito3, Digito4
+	DB Digito0, Digito1, Digito2, Digito3, Digito4
 	DB Digito5, Digito6, Digito7, Digito8, Digito9	
 
 	
 .org 1000h 			; salva o programa no endereço 1000h
 	LXI B, EndDigito  ; Move EndDigito para BC
-	mvi d, 00h         ; CONTADOR DA UNIDADE SEGUNDOS
-	mvi e, 01h         ; CONTADOR DA DEZENA SEGUNDOS
-	mvi a, 01h       
+	mvi d, 0h         ; CONTADOR DA UNIDADE SEGUNDOS
+	mvi e, 0h         ; CONTADOR DA DEZENA SEGUNDOS
+	mvi a, 0h       
 	sta a01eh         ; CONTADOR DA UNIDADE MINUTOS
 	sta a01fh         ; CONTADOR DA DEZENA MINUTOS
 	sta a020h         ; CONTADOR DA UNIDADE HORA
@@ -59,8 +59,6 @@ loop:					; Loop infinito
 contador:
 	Lxi b, EndDigito  ; Move EndDigito para BC
     	Mov a, d          ; MOVE O CONTADOR DOS SEGUNDOS PARA A
-	cpi 00h	
-	jnz L1
 	
 L1:                     ; LOOP USANDO O CONTADOR DA UNIDADE DOS SEGUNDO PARA incrementar b    
     	dcr a      
@@ -74,12 +72,12 @@ L1:                     ; LOOP USANDO O CONTADOR DA UNIDADE DOS SEGUNDO PARA inc
 	Inr d
     	Mov a, d        
     	Lxi b, EndDigito
+             
 L2:           
     	INX b 
     	dcr a        
     	JNZ L2 
-	jm L2
-        	
+       	
 	ldax b	
 	OUT SegundoU     ; mostrar o digito			
 	RET	
@@ -88,11 +86,13 @@ digito_dezena:          ; *todos os loops usam a mesma logica*
 	LXI B, EndDigito	
 	mvi d, 00h
 	mov a, d
-	inr a
+	cpi 00h	
+	jz L03       ; QUANDO ZERAR FAZER ESTE LOOP
 L3: 
 	inX b    
     	dcr a        
-    	JNZ L3	
+    	JNZ L3
+L03:	
 	LDAX B	
 	OUT SegundoU
 	
@@ -101,9 +101,9 @@ L3:
 
 L4:   inX b    
     	dcr a        
-    	JNZ L4	
+    	JNZ L4
+
 	LDAX B
-	
 	CPI Digito5	; compara com o número 5
 	JZ minuto	; Se for 5, zerar a dezena e incrementar unidade dos minutos
 	            ; se nao for 5, incrementa
@@ -115,22 +115,24 @@ L4:   inX b
 L5:           
     	INX b   
     	dcr a        
-    	JNZ L5        
-
+    	JNZ L5  
+      
 	LDAX B		
 	OUT SegundoD				
 	RET			
 
 minuto:
 	LXI B, EndDigito	
-	mvi e, 0h
+	mvi e, 00h
 	mov a, e
 	inr a
+	cpi 00H
+	jz L06
 
 L6:   inX b    
     	dcr a        
     	JNZ L6	
-	
+L06:	
 	LDAX B	
 	OUT SegundoD	
 	
@@ -170,11 +172,14 @@ minuto_dezena:
 	mvi m, 0h
 	mov a, m
 	inr a 
+	CPI 00
+	JZ L09
 
 L9:   inX b    
     	dcr a        
     	JNZ L9	
-	
+
+L09:
 	LDAX B	
 	OUT MinutoU	
 	
@@ -211,11 +216,12 @@ hora:
 	lxi h, a01fh
 	mvi m, 0h
 	mov a, m
-
+	CPI 00H
+	JZ L012
 L12: inX b    
     	dcr a        
     	JNZ L12	
-	
+L012:	
 	LDAX B	
 	OUT MinutoD	
 	
