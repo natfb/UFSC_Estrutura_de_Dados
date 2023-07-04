@@ -1,49 +1,49 @@
 ; 0,5 us * x = 1ms
 ; x = 1,0 ms / 0,5us
 ; x = 2000 
-; loop interno 7 + x * (4 + 10) - 3 = 18
-; X = 141 8BH
+; loop interno 7 + y * (4 + 10) - 3 = 1990
+; y = 141 8BH
 ; 1990 + 10 (RET) = 2000
 
 
 .define
-	EndDigito A000h   ; Endere?o em que os valores hex dos dig?tos decimais ser?o salvos
-	Digito0 77h	      ; Valor hex para o display mostrar o digito 0
-	Digito1 44h		; Valor hex para o display mostrar o digito 1
-	Digito2 3Eh		; Valor hex para o display mostrar o digito 2
-	Digito3 6Eh		; Valor hex para o display mostrar o digito 3
-	Digito4 4Dh		; Valor hex para o display mostrar o digito 4
-	Digito5 6Bh		; Valor hex para o display mostrar o digito 5
-	Digito6 7Bh		; Valor hex para o display mostrar o digito 6
-	Digito7 46h		; Valor hex para o display mostrar o digito 7
-	Digito8 7Fh		; Valor hex para o display mostrar o digito 8
-	Digito9 4Fh		; Valor hex para o display mostrar o digito 9
+	EndDigito A000h   ; Endereço em que serão salvos os digitos hexa correspondentes aos decimais
+	Digito0 77h	      ; Número hexadecimal para o display mostrar 0
+	Digito1 44h		; Número hexadecimal para o display mostrar 1
+	Digito2 3Eh		; Número hexadecimal para o display mostrar 2
+	Digito3 6Eh		; Número hexadecimal para o display mostrar 3
+	Digito4 4Dh		; Número hexadecimal para o display mostrar 4
+	Digito5 6Bh		; Número hexadecimal para o display mostrar 5
+	Digito6 7Bh		; Número hexadecimal para o display mostrar 6
+	Digito7 46h		; Número hexadecimal para o display mostrar 7
+	Digito8 7Fh		; Número hexadecimal para o display mostrar 8
+	Digito9 4Fh		; Número hexadecimal para o display mostrar 9
 	dig 77h	
-	atraso1 01H		; Valor para delay. Escolher diferente de 00h
-	SegundoU 05h		; Definindo porta de sa?da para digito da unidade do segundo
-	SegundoD 04h		; Definindo porta de sa?da para digito da dezena do segundo
-	MinutoU 03h		; Definindo porta de sa?da para digito da unidade do minuto
-	MinutoD 02h		; Definindo porta de sa?da para digito da dezena do minuto
-	HoraU 01h		; Definindo porta de sa?da para digito da unidade da hora
-	HoraD 00h		; Definindo porta de sa?da para digito da dezena da hora
+	atraso1 01H		; Valor para delay
+	SegundoU 05h	; Definindo porta de saída para a unidade do segundo
+	SegundoD 04h	; Definindo porta de saída para a dezena do segundo
+	MinutoU 03h		; Definindo porta de saída para a unidade do minuto
+	MinutoD 02h		; Definindo porta de saída para a dezena do minuto
+	HoraU 01h		; Definindo porta de saída para a unidade da hora
+	HoraD 00h		; Definindo porta de saída para a dezena da hora
 
 
-.data EndDigito		; Salvando os valores hex no endere?o indicado
-	DB Digito0, Digito1, Digito2, Digito3, Digito4
+.data EndDigito		; Salvando os valores hexacimais no endereço indicado
+	DB dig, Digito0, Digito1, Digito2, Digito3, Digito4
 	DB Digito5, Digito6, Digito7, Digito8, Digito9	
 
 	
-.org 1000h 			; Iniciar o programa no endere?o 1000h
-	LXI B, EndDigito  ; Par de registradores BC utilizado para o d?gito de unidade
-	mvi d, 01h      ;CONTADOR DA UNIDADE SEGUNDOS
-	mvi e, 01h      ; CONTADOR DA DEZENA SEGUNDOS
+.org 1000h 			; salva o programa no endereço 1000h
+	LXI B, EndDigito  ; Move EndDigito para BC
+	mvi d, 00h         ; CONTADOR DA UNIDADE SEGUNDOS
+	mvi e, 01h         ; CONTADOR DA DEZENA SEGUNDOS
 	mvi a, 01h       
-	sta a01eh        ;CONTADOR DA UNIDADE MINUTOS
-	sta a01fh        ;CONTADOR DA DEZENA MINUTOS
-	sta a020h       ;CONTADOR DA UNIDADE HORA
-	sta a021h        ;CONTADOR DA DEZENA HORA
+	sta a01eh         ; CONTADOR DA UNIDADE MINUTOS
+	sta a01fh         ; CONTADOR DA DEZENA MINUTOS
+	sta a020h         ; CONTADOR DA UNIDADE HORA
+	sta a021h         ; CONTADOR DA DEZENA HORA
 
-      LDA EndDigito	; Preenchendo com o d?gito 0 no display
+      LDA EndDigito	; mostrar 0 no display
       OUT SegundoU
       OUT SegundoD
 	OUT MinutoU
@@ -51,40 +51,44 @@
 	OUT HoraU
       OUT HoraD
 loop:					; Loop infinito
-	CALL delay			; Chamada da sub-rotina de delay
-	CALL contador		; Chamada da sub-rotina do contador
+	CALL delay			; Chamada do delay
+	CALL contador		; Chamada do contador
       JMP loop
 	
-.org 2000h			; Endere?o da sub-rotina do contador
+.org 2000h			; Endereço do contador
 contador:
-	Lxi b, EndDigito
+	Lxi b, EndDigito  ; Move EndDigito para BC
     	Mov a, d          ; MOVE O CONTADOR DOS SEGUNDOS PARA A
+	cpi 00h	
+	jnz L1
+	
+L1:                     ; LOOP USANDO O CONTADOR DA UNIDADE DOS SEGUNDO PARA incrementar b    
+    	dcr a      
+	inX b	
+     	jnz L1
 
-L1:                     ; LOOP USANDO O CONTADOR DA UNIDADE DOS SEGUNDO PARA incrementar b
-    	inX b    
-    	dcr a        
-    	JNZ L1	
-     	
 	LDAX B
-	CPI Digito9		; Comparar com o valor hex para 9
-     	JZ digito_dezena
-	                     ; Se digito da unidade for 9, ent?o deve-se zerar o digito
+	CPI Digito9		; compara com o número 9
+     	JZ digito_dezena  ; Se for 9, zerar a unidade e incrementar dezena
+	                  ; se nao for incremenatar unidade   
 	Inr d
     	Mov a, d        
     	Lxi b, EndDigito
 L2:           
     	INX b 
     	dcr a        
-    	JNZ L2         	
+    	JNZ L2 
+	jm L2
+        	
 	ldax b	
-	OUT SegundoU			
+	OUT SegundoU     ; mostrar o digito			
 	RET	
 		 
 digito_dezena:          ; *todos os loops usam a mesma logica*
-	LXI B, EndDigito	; Resetar o endere?o apontado pelo par BC
-	mvi d, 01h
+	LXI B, EndDigito	
+	mvi d, 00h
 	mov a, d
-
+	inr a
 L3: 
 	inX b    
     	dcr a        
@@ -100,9 +104,10 @@ L4:   inX b
     	JNZ L4	
 	LDAX B
 	
-	CPI Digito5	; Comparar com o valor hex do d?gito 5
-	JZ minuto	; Caso o d?gito da dezena seja 5, PULA PARA O LOOP DOS MINUTOS.	
-	
+	CPI Digito5	; compara com o número 5
+	JZ minuto	; Se for 5, zerar a dezena e incrementar unidade dos minutos
+	            ; se nao for 5, incrementa
+
 	Lxi b, EndDigito
 	inr e
 	mov a, e	
@@ -117,9 +122,10 @@ L5:
 	RET			
 
 minuto:
-	LXI B, EndDigito	; Resetar o endere?o apontado pelo par BC
-	mvi e, 01h
+	LXI B, EndDigito	
+	mvi e, 0h
 	mov a, e
+	inr a
 
 L6:   inX b    
     	dcr a        
@@ -132,13 +138,14 @@ L6:   inX b
 	lxi h, a01eh
 	mov a, m
 		
-L7: inX b    
+L7:   inX b    
     	dcr a        
     	JNZ L7	
 	LDAX B
 	
-	CPI Digito9	    ; Comparar com o valor hex do d?gito 9
-	JZ minuto_dezena	;	
+	CPI Digito9	    
+	JZ minuto_dezena	; Se for 9, zerar a unidade do minuto e incrementar dezena do minuto
+	                  ; se nao for 9 incrementa	
 	
 	Lxi b, EndDigito
 	lxi h, a01eh
@@ -148,18 +155,21 @@ L7: inX b
 
 L8:           
     	INX b   
-    	dcr a       
-    	JNZ L8         
-
-	LDAX B		
+    	dcr a     
+    	JNZ L8  
+      sta a014h  
+	
+	LDAX B
+	sta a015h		
 	OUT MinutoU				
 	RET
 				
 minuto_dezena:
-	LXI B, EndDigito	; Resetar o endere?o apontado pelo par BC	
+	LXI B, EndDigito		
 	lxi h, a01eh
-	mvi m, 01h
+	mvi m, 0h
 	mov a, m
+	inr a 
 
 L9:   inX b    
     	dcr a        
@@ -175,10 +185,11 @@ L9:   inX b
 L10:  inX b    
     	dcr a        
     	JNZ L10	
-	
+
 	LDAX B
 	CPI Digito5	
-	JZ hora		
+	JZ hora		; Se for 5, zerar a dezena do minuto e incrementar unidade da hora
+	                  ; se nao for 5 incrementa	
 	
 	Lxi b, EndDigito
 	lxi h, a01fh
@@ -196,9 +207,9 @@ L11:
 	RET
 
 hora:
-	LXI B, EndDigito	; Resetar o endere?o apontado pelo par BC	
+	LXI B, EndDigito	
 	lxi h, a01fh
-	mvi m, 01h
+	mvi m, 0h
 	mov a, m
 
 L12: inX b    
@@ -217,11 +228,12 @@ L13:  inX b
     	JNZ L13	
 	
 	LDAX B
-	CPI Digito9	; Comparar com o valor hex do d?gito 9
-	JZ hora_dezena	;	
-	CPI Digito4
-	jz ZERAR_HORA
-zerarr:
+	CPI Digito9	   
+	JZ hora_dezena	; Se for 9, zerar a unidade da hora e incrementar dezena da hora
+	                  ; se nao for 5 incrementa	
+	CPI Digito3       ; compara com número 3
+	jz ZERAR_HORA     ; loop para verificar se são 23 horas
+resume:
 	Lxi b, EndDigito
 	lxi h, a020h
 	mov a, m	
@@ -271,13 +283,25 @@ ZERAR_HORA:
 	MOV A, M
 	inr a
 	sta a023h
-	cpi 03
-	jnz zerarr
-	
+	cpi 03      
+	jnz resume   ; se não for 3 volta para o loop
+	             ; se a unidade da hora for 3 pela terceira vez, reseta
 	mvi m, 01h
 	mov a, m
 
-	LXI B, EndDigito	; Resetar o endere?o apontado pelo par BC	
+	LXI B, EndDigito   ; zerar unidade das horas
+	lxi h, a020h
+	mvi m, 01h
+	mov a, m
+
+L18:  inX b    
+    	dcr a        
+    	JNZ L18
+	
+	LDAX B	   ; zerar dezena das horas
+	OUT HoraU
+
+	LXI B, EndDigito		
 	lxi h, a021h
 	mvi m, 01h
 	mov a, m
@@ -290,8 +314,8 @@ L19:  inX b
 	OUT HoraD	
 	
 	RET
-	
-.org 2200h			; Endere?o da sub-rotina de delay
+
+.org 2200h			; Endereço do delay
 delay:			; Rotina de Delay
 	MVI H, atraso1	
 loop1:
