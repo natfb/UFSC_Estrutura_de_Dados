@@ -10,24 +10,22 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    clipscene.cpp \
     editorwindow.cpp \
     filters.cpp \
     main.cpp \
     app.cpp \
-    paint.cpp
+    savewindow.cpp
 
 HEADERS += \
     app.h \
-    clipscene.h \
     editorwindow.h \
     filters.h \
-    paint.h
+    savewindow.h
 
 FORMS += \
     app.ui \
-    app_copy.ui \
-    editorwindow.ui
+    editorwindow.ui \
+    savewindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -5,11 +5,10 @@
 #include <QImage>
 #include <QLabel>
 #include "filters.h"
-#include "paint.h"
 #include <QMainWindow>
 #include <QPaintEvent>
 #include <QMouseEvent>
-
+#include <QGraphicsScene>
 QT_BEGIN_NAMESPACE
 namespace Ui { class editorwindow; }
 QT_END_NAMESPACE
@@ -68,12 +67,9 @@ private:
     QPixmap *originalImage;
     QPixmap *image;
     Filters *filters;
-    ClipScene* scene;
+
     QGraphicsScene* scenee;
-    /* QPoint ilkkonum;
-    QPoint sonkonum;
-    QLine cizkor;
-    QVector<QLine> cizgiler;*/
+
 
 };
 #endif // editorwindow_H

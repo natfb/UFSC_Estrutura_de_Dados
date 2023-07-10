@@ -462,21 +462,6 @@
    <property name="styleSheet">
     <string notr="true">background: black;</string>
    </property>
-   <widget class="QWidget" name="horizontalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>20</y>
-      <width>441</width>
-      <height>701</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <property name="spacing">
-      <number>0</number>
-     </property>
-    </layout>
-   </widget>
    <widget class="QPushButton" name="shutter">
     <property name="geometry">
      <rect>
@@ -567,6 +552,17 @@ border-radius: 5px solid transparent;</string>
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>391</width>
+      <height>691</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2"/>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

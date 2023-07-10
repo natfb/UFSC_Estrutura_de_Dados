@@ -1,23 +1,16 @@
 #include "editorwindow.h"
 #include "ui_editorwindow.h"
 #include <QFileDialog>
-#include <QVBoxLayout>
-#include "paint.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
-#include <QPen>
-#include <QPainter>
-#include <QDir>
-#include <QStandardPaths>
 #include <QFile>
 #include <QDebug>
 #include <QDateTime>
-#include <QCoreApplication>
 #include <QCamera>
-//#include <QAndroidApplication>
 #include <QScroller>
 #include <QGraphicsBlurEffect>
+#include "savewindow.h"
 
 editorwindow::editorwindow(QWidget *parent)
     : QMainWindow(parent)
@@ -27,7 +20,7 @@ editorwindow::editorwindow(QWidget *parent)
     scenee = new QGraphicsScene(this);
 }
 
-
+//construtor | arquivo aberto pelo explorador
 editorwindow::editorwindow(const QString& photoPath, QWidget *parent) :
    QMainWindow(parent)
  ,  ui(new Ui::editorwindow)
@@ -44,6 +37,7 @@ editorwindow::editorwindow(const QString& photoPath, QWidget *parent) :
     ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     QScroller::grabGesture(ui->scrollArea->viewport(), QScroller::TouchGesture);
+    //stylesheet dos sliders
     ui->horizontalSlider->setStyleSheet("QSlider::groove:horizontal {"
                                         "    height: 5px;"
                                         "    background: white;"
@@ -70,7 +64,7 @@ editorwindow::editorwindow(const QString& photoPath, QWidget *parent) :
                                        "}");
 
 }
-
+//construtor | foto tirada pela camera
 editorwindow::editorwindow(const QImage &img, QWidget *parent)
     :
     QMainWindow(parent)
@@ -86,19 +80,10 @@ editorwindow::editorwindow(const QImage &img, QWidget *parent)
     if (!image->isNull()) {
         QGraphicsPixmapItem* pixmapItem = scenee->addPixmap(*image);
 
-        // Adjust the scene's bounding rectangle to match the size of the pixmap item
         scenee->setSceneRect(pixmapItem->boundingRect());
-
-        // Set the created scene as the scene for the QGraphicsView widget
         ui->graphicsView->setScene(scenee);
-
-        // Calculate the scaling factor to fit the scene into the fixed size
         qreal scaleFactor = qMin(sizeW / scenee->sceneRect().width(), sizeH / scenee->sceneRect().height());
-
-        // Scale the view to fit the scene, maintaining the aspect ratio
         ui->graphicsView->scale(scaleFactor, scaleFactor);
-
-        // Set the fixed size of the graphics view
         ui->graphicsView->setFixedSize(sizeW, sizeH);
     };
 
@@ -108,6 +93,7 @@ editorwindow::editorwindow(const QImage &img, QWidget *parent)
     ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     QScroller::grabGesture(ui->scrollArea->viewport(), QScroller::TouchGesture);
+    //stylesheet dos slider
     ui->horizontalSlider->setStyleSheet("QSlider::groove:horizontal {"
                                         "    height: 5px;"
                                         "    background: white;"
@@ -138,7 +124,7 @@ editorwindow::~editorwindow()
 {
     delete ui;
 }
-
+//mostrar imagem
 void editorwindow::setScene(const QString& path)
 {
     if (!path.isEmpty()) {
@@ -151,27 +137,24 @@ void editorwindow::setScene(const QString& path)
         if (!pixmap.isNull()) {
             QGraphicsPixmapItem* pixmapItem = scenee->addPixmap(*image);
 
-            // Adjust the scene's bounding rectangle to match the size of the pixmap item
             scenee->setSceneRect(pixmapItem->boundingRect());
 
-            // Set the created scene as the scene for the QGraphicsView widget
             ui->graphicsView->setScene(scenee);
 
-            // Calculate the scaling factor to fit the scene into the fixed size
+            // scale
             qreal scaleFactor = qMin(sizeW / scenee->sceneRect().width(), sizeH / scenee->sceneRect().height());
-
-            // Scale the view to fit the scene, maintaining the aspect ratio
             ui->graphicsView->scale(scaleFactor, scaleFactor);
 
-            // Set the fixed size of the graphics view
+            // tamanho fixo do graphicsView
             ui->graphicsView->setFixedSize(sizeW, sizeH);
         };
 
     }
 }
-//!!!!!!!!!!!salvar https://www.qt.io/blog/qt-extras-modules-in-qt-6
+//salvar
 void editorwindow::on_save_clicked()
 {
+    //salva a photo em downloads
     QString filePath = "/storage/emulated/0/Download/img_" + QString::number(QDateTime::currentSecsSinceEpoch())  + ".png";  // Replace with your desired file path
     QFile file(filePath);
     if (file.open(QIODevice::WriteOnly)) {
@@ -179,14 +162,35 @@ void editorwindow::on_save_clicked()
         file.close();
 
         if (success) {
-            qDebug()<<"Salvou";
+            saveWindow* save = new saveWindow(this);
+            save->show();
+
         } else {
             qDebug()<<" N salvou";
         }
     } else {
         // Error opening file
     }
+}
+//voltar
+void editorwindow::on_voltar_clicked()
+{
+    close();
+}
+//ferramentas
+void editorwindow::on_ferramentas_clicked()
+{
+    ui->widget->setVisible(true);
+    ui->horizontalSlider->setVisible(false);
+    ui->sliderSaturacao->setVisible(false);
+    ui->widget_2->setVisible(false);
+}
 
+//filtros
+void editorwindow::on_filtros_clicked()
+{
+    ui->widget->setVisible(false);
+    ui->widget_2->setVisible(true);
 }
 
 //default
@@ -205,12 +209,11 @@ void editorwindow::on_default_2_clicked()
 
     filters = new Filters(*image);
 
-    //brilho 0
+    //brilho blur e saturação 0
     ui->horizontalSlider->setValue(0);
     ui->sliderSaturacao->setValue(0);
+    ui->graphicsView->setGraphicsEffect(nullptr);
 }
-
-//filtros
 
 //brilho
 void editorwindow::on_pushButton_clicked()
@@ -218,14 +221,12 @@ void editorwindow::on_pushButton_clicked()
     filters = new Filters(*image);
     ui->horizontalSlider->setVisible(true);
     ui->sliderSaturacao->setVisible(false);
-    ui->pushButton->setStyleSheet(" QPushButton{background: rgb(50, 50, 50); color: white; border: 1px solid transparent; margin: auto; border-radius: 10px; }");
-    ui->saturacao->setStyleSheet(" QPushButton{background: rgb(43, 43, 43); color: white; border: 1px solid transparent; margin: auto; border-radius: 10px; padding-right: 3px; padding-left: 3px} ");
+    ui->saturacao->setStyleSheet(" QPushButton{background: rgb(43, 43, 43); color: white; border: 1px solid transparent; margin: auto; border-radius: 10px}");
+    ui->pushButton->setStyleSheet(" QPushButton{background: rgb(50, 50, 50); color: white; border: 1px solid transparent; margin: auto; border-radius: 10px; padding-right: 3px; padding-left: 3px} ");
 }
-
+//brilho slider
 void editorwindow::on_horizontalSlider_valueChanged(int value)
 {
-    qDebug()<<value;
-
     QImage *imageF = filters->addBrightness(value);
     image = new QPixmap(QPixmap::fromImage(*imageF));
 
@@ -236,7 +237,31 @@ void editorwindow::on_horizontalSlider_valueChanged(int value)
         ui->graphicsView->fitInView(scenee->sceneRect(), Qt::KeepAspectRatio);
     }
 }
+//saturação
+void editorwindow::on_saturacao_clicked()
+{
+    filters = new Filters(*image);
+    ui->sliderSaturacao->setVisible(true);
+    ui->horizontalSlider->setVisible(false);
+    ui->pushButton->setStyleSheet(" QPushButton{background: rgb(43, 43, 43); color: white; border: 1px solid transparent; margin: auto; border-radius: 10px}");
+    ui->saturacao->setStyleSheet(" QPushButton{background: rgb(50, 50, 50); color: white; border: 1px solid transparent; margin: auto; border-radius: 10px; padding-right: 3px; padding-left: 3px} ");
+}
 
+
+//saturação slider
+void editorwindow::on_sliderSaturacao_valueChanged(int value)
+{
+    QImage *imageF = filters->changeSaturation(value);
+    image = new QPixmap(QPixmap::fromImage(*imageF));
+
+    if (!image->isNull()) {
+        QGraphicsPixmapItem* pixmapItem = scenee->addPixmap(*image);
+        scenee->setSceneRect(pixmapItem->boundingRect());
+        ui->graphicsView->setScene(scenee);
+        ui->graphicsView->fitInView(scenee->sceneRect(), Qt::KeepAspectRatio);
+    }
+}
+//girar
 void editorwindow::on_girar_clicked()
 {
     ui->graphicsView->scene()->clear();
@@ -259,6 +284,8 @@ void editorwindow::on_girar_clicked()
 
 }
 
+//filtros
+//preto e branco
 void editorwindow::on_peb_clicked()
 {
     QImage grayscaleImage = image->toImage();
@@ -280,7 +307,7 @@ void editorwindow::on_peb_clicked()
     }
 }
 
-
+//inverter
 void editorwindow::on_inverter_clicked()
 {
     QImage inverted = image->toImage();
@@ -295,60 +322,9 @@ void editorwindow::on_inverter_clicked()
     }
 }
 
-
-void editorwindow::on_ferramentas_clicked()
-{
-    ui->widget->setVisible(true);
-    ui->horizontalSlider->setVisible(false);
-    ui->sliderSaturacao->setVisible(false);
-    ui->widget_2->setVisible(false);
-}
-
-
-void editorwindow::on_filtros_clicked()
-{
-    ui->widget->setVisible(false);
-    ui->widget_2->setVisible(true);
-
-}
-
-
-void editorwindow::on_voltar_clicked()
-{
-    close();
-}
-
-
-void editorwindow::on_saturacao_clicked()
-{
-    filters = new Filters(*image);
-    ui->sliderSaturacao->setVisible(true);
-    ui->horizontalSlider->setVisible(false);
-    ui->pushButton->setStyleSheet(" QPushButton{background: rgb(43, 43, 43); color: white; border: 1px solid transparent; margin: auto; border-radius: 10px}");
-    ui->saturacao->setStyleSheet(" QPushButton{background: rgb(50, 50, 50); color: white; border: 1px solid transparent; margin: auto; border-radius: 10px; padding-right: 3px; padding-left: 3px} ");
-}
-
-
-
-void editorwindow::on_sliderSaturacao_valueChanged(int value)
-{
-    QImage *imageF = filters->changeSaturation(value);
-    image = new QPixmap(QPixmap::fromImage(*imageF));
-
-    if (!image->isNull()) {
-        QGraphicsPixmapItem* pixmapItem = scenee->addPixmap(*image);
-        scenee->setSceneRect(pixmapItem->boundingRect());
-        ui->graphicsView->setScene(scenee);
-        ui->graphicsView->fitInView(scenee->sceneRect(), Qt::KeepAspectRatio);
-    }
-}
-
-
+//blur
 void editorwindow::on_blur_clicked()
 {
-    //filters = new Filters(*image);
-    //QImage *imageF = filters->blur();
-    //image = new QPixmap(QPixmap::fromImage(*imageF));
     QGraphicsBlurEffect* blurEffect = new QGraphicsBlurEffect;
     blurEffect->setBlurRadius(5);
     if (!image->isNull()) {
@@ -358,22 +334,9 @@ void editorwindow::on_blur_clicked()
         ui->graphicsView->fitInView(scenee->sceneRect(), Qt::KeepAspectRatio);
         ui->graphicsView->setGraphicsEffect(blurEffect);
     }
-
-    /*QImage blurredImage = image->toImage();
-    blurredImage = blurredImage.scaled(blurredImage.width() / 5, blurredImage.height() / 5); // Optional: Scale down for faster processing
-    blurredImage = blurredImage.scaled(image->width(), image->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation); // Optional: Scale back to original size
-
-    image = new QPixmap(QPixmap::fromImage(blurredImage));
-
-    if (!image->isNull()) {
-        QGraphicsPixmapItem* pixmapItem = scenee->addPixmap(*image);
-        scenee->setSceneRect(pixmapItem->boundingRect());
-        ui->graphicsView->setScene(scenee);
-        ui->graphicsView->fitInView(scenee->sceneRect(), Qt::KeepAspectRatio);
-    }*/
 }
 
-
+//sepia
 void editorwindow::on_sepia_clicked()
 {
     filters = new Filters(*image);
@@ -388,7 +351,7 @@ void editorwindow::on_sepia_clicked()
     }
 }
 
-
+//filtro FX01
 void editorwindow::on_special_clicked()
 {
     filters = new Filters(*image);

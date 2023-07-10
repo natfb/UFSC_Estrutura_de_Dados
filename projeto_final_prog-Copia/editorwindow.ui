@@ -637,9 +637,9 @@ border: 1px solid transparent;</string>
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>740</y>
+      <y>736</y>
       <width>441</width>
-      <height>31</height>
+      <height>35</height>
      </rect>
     </property>
     <property name="styleSheet">

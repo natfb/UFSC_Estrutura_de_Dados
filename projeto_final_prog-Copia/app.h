@@ -5,7 +5,6 @@
 #include <QImage>
 #include <QLabel>
 #include "filters.h"
-#include "paint.h"
 #include <QMainWindow>
 #include <QPaintEvent>
 #include <QMouseEvent>
@@ -18,6 +17,7 @@
 #include <QMediaCaptureSession>
 #include <QVBoxLayout>
 #include <QScopedPointer>
+#include <QHBoxLayout>
 QT_BEGIN_NAMESPACE
 namespace Ui { class app; }
 QT_END_NAMESPACE
@@ -33,7 +33,7 @@ public:
     void mouseReleaseEvent(QMouseEvent*);
     void mouseMoveEvent(QMouseEvent*);
     void paintEvent(QPaintEvent*);*/
-
+    void resizeCamera();
 private slots:
 
     void on_open_2_clicked();
@@ -48,7 +48,6 @@ private:
     QPixmap *originalImage;
     QPixmap *image;
     Filters *filters;
-    ClipScene* scene;
     QGraphicsScene* scenee;
     QScopedPointer<QCamera> m_camera;
     QCamera *camera;
@@ -59,6 +58,8 @@ private:
     QGraphicsView*       m_cameraView;
     QGraphicsScene*      m_cameraScene;
     QMediaCaptureSession m_captureSession;
+    QWidget* m_mainMaskFrame;
+    QHBoxLayout* existingLayout;
 
 };
 #endif // APP_H

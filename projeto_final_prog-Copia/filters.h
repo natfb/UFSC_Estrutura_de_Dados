@@ -16,9 +16,8 @@ public:
     explicit Filters(const QPixmap &image);
     QImage* addBrightness(int num);
     QImage* changeSaturation(int num);
-    QImage*  Sepia();
-    QImage*  Special();
-    QImage* blur();
+    QImage* Sepia();
+    QImage* Special();
 };
 
 #endif // FILTERS_H

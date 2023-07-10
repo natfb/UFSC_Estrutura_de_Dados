@@ -7,8 +7,6 @@ Filters::Filters(const QPixmap &image) : sourceImage(image) {};
 QImage* Filters::addBrightness(int num)
 {
     QImage *imageToReturn{new QImage(sourceImage.toImage())};
-    //QImage *imageToReturn{new QImage(sourceImage)};
-    qDebug()<<"aqui";
     brilho = num;
     return setColorsCoeficients(imageToReturn);
 }
@@ -21,14 +19,11 @@ QImage *Filters::changeSaturation(int num)
         for (int x = 0; x < saturatedImage->width(); ++x) {
             QRgb pixel = saturatedImage->pixel(x, y);
 
-            // Convert the pixel values to HSL color space
             int h, s, l;
             QColor::fromRgb(pixel).getHsl(&h, &s, &l);
 
-            // Adjust the saturation value
             s = qBound(0, static_cast<int>(s + saturation), 255);
 
-            // Convert the modified HSL values back to RGB
             QColor newColor = QColor::fromHsl(h, s, l);
             saturatedImage->setPixel(x, y, newColor.rgb());
         }
@@ -61,15 +56,9 @@ QImage *Filters::Special()
         for (int x = 0; x < filteredImage->width(); ++x) {
             QRgb pixel = filteredImage->pixel(x, y);
 
-            // Retrieve the original red, green, and blue values
             int red = qRed(pixel);
             int green = qGreen(pixel);
 
-            // Convert the RGB values to grayscale
-
-
-            // Set the red and green channels to the grayscale value,
-            // effectively removing the distinction between red and green
             filteredImage->setPixel(x, y, qRgb(red, green, green));
         }
     }
@@ -77,19 +66,8 @@ QImage *Filters::Special()
     return filteredImage;
 }
 
-QImage *Filters::blur()
-{
-    QImage* filteredImage{new QImage(sourceImage.toImage())};
-
-
-    return filteredImage;
-}
-
 QImage* Filters::setColorsCoeficients(QImage *image)
 {
-   // QImage filterImage = image->toImage();
-
-
     for(int w{0}; w < image->width(); w++)
     {
         for(int h{0}; h < image->height(); h++)
