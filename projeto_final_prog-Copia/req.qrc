@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/images"/>
+    <qresource prefix="/new/prefix1"/>
+    <qresource prefix="/">
+        <file>plus.png</file>
+        <file>refresh.png</file>
+        <file>sun.png</file>
+        <file>gato.png</file>
+        <file>rotating-arrow-symbol.png</file>
+        <file>undo.png</file>
+        <file>diskette.png</file>
+        <file>refresh-arrow.png</file>
+        <file>diaphragm.png</file>
+        <file>photo.png</file>
+    </qresource>
+</RCC>
