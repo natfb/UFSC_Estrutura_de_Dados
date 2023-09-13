@@ -28,10 +28,8 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
     }
 
     virtual bool vazia() const {
-        if (this->_primeiro == nullptr)
-            return true;
-        
-        return false;
+        return (this->_primeiro == nullptr);
+            
     }
 
     virtual std::size_t posicao(T dado) const {
@@ -42,26 +40,32 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
         size_t i = 0;
         Elemento<T>* data = this->_primeiro;
 
-        do {
+        while(data != nullptr) {
             if(data->dado == dado){
                 return i; 
             } 
             i++;
             data = data->proximo;
-        } while (data != nullptr);
+        }
         
         throw ExcecaoDadoInexistente();
     }
 
     virtual bool contem(T dado) const {
-        //
+        
+        Elemento<T>* data = this->_primeiro;
+        
+        while(data != nullptr) {
+            
+            if(data->dado == dado)
+                return true;  
+
+            data = data->proximo;
+        }
         return false;
     }
 
     virtual void inserirNoInicio(T dado) {
-
-        // if (vazia()) 
-        //     throw ExcecaoListaEncadeadaVazia();
 
         Elemento<T>* novo = new Elemento<T>(dado, this->_primeiro);
 
@@ -70,12 +74,41 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
     };
 
     virtual void inserir(std::size_t posicao, T dado) {
+        if(posicao < 0 || posicao >= this->_tamanho)
+            throw ExcecaoPosicaoInvalida();
 
+        size_t i = 0;
+        Elemento<T>* data = this->_primeiro;
+
+        while(data->proximo != nullptr) { 
+            Elemento<T>* anterior = nullptr;
+            
+            if(posicao == i){
+               Elemento<T>* novo = new Elemento<T>(dado, data);
+               anterior->proximo = novo;
+            }
+            anterior = data;
+            data = data->proximo;
+            i++;
+        }
     }
 
     virtual void inserirNoFim(T dado) {
         
+        if (this->vazia()){
+            inserirNoInicio(dado);
+            return;
+        }
+
+        Elemento<T>* data = this->_primeiro;
+
+        while(data->proximo != nullptr) {
+            data = data->proximo;
+        }
+        data->proximo = new Elemento<T>(dado, nullptr);
+        this->_tamanho++;
     }
+
     virtual T removerDoInicio() {
         return 0;
     }
