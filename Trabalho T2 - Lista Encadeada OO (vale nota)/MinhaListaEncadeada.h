@@ -35,27 +35,33 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
     }
 
     virtual std::size_t posicao(T dado) const {
-        int i = 0;
+        
+        if (vazia())
+            throw ExcecaoListaEncadeadaVazia();
+        
+        size_t i = 0;
         Elemento<T>* data = this->_primeiro;
 
-        while (data->proximo != nullptr) {
+        do {
             if(data->dado == dado){
-                return i;
-                i++;
+                return i; 
             } 
+            i++;
             data = data->proximo;
-        }
-        return 0;
+        } while (data != nullptr);
+        
+        throw ExcecaoDadoInexistente();
     }
 
     virtual bool contem(T dado) const {
+        //
         return false;
     }
+
     virtual void inserirNoInicio(T dado) {
 
-        // if (vazia()) {
+        // if (vazia()) 
         //     throw ExcecaoListaEncadeadaVazia();
-        // }
 
         Elemento<T>* novo = new Elemento<T>(dado, this->_primeiro);
 

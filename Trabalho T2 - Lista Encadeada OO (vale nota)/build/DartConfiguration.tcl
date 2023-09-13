@@ -4,14 +4,14 @@
 
 
 # Configuration directories and files
-SourceDirectory: D:/aluno/Downloads/Trabalho T2 - Lista Encadeada OO (vale nota)
-BuildDirectory: D:/aluno/Downloads/Trabalho T2 - Lista Encadeada OO (vale nota)/build
+SourceDirectory: D:/Documentos/GitHub/UFSC_programacao-II/Trabalho T2 - Lista Encadeada OO (vale nota)
+BuildDirectory: D:/Documentos/GitHub/UFSC_programacao-II/Trabalho T2 - Lista Encadeada OO (vale nota)/build
 
 # Where to place the cost data store
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: UFSC-LAB120
+Site: DESKTOP-UDK6HS6
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
 BuildName: Win32-ninja
@@ -27,7 +27,7 @@ SubmitInactivityTimeout:
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "C:/msys64/mingw64/bin/cmake.exe" "D:/aluno/Downloads/Trabalho T2 - Lista Encadeada OO (vale nota)"
+ConfigureCommand: "C:/msys64/mingw64/bin/cmake.exe" "D:/Documentos/GitHub/UFSC_programacao-II/Trabalho T2 - Lista Encadeada OO (vale nota)"
 MakeCommand: C:\msys64\mingw64\bin\cmake.exe --build . --config "${CTEST_CONFIGURATION_TYPE}"
 DefaultCTestConfigurationType: Release
 
@@ -64,7 +64,7 @@ UpdateType:
 
 # Compiler info
 Compiler: C:/msys64/mingw64/bin/g++.exe
-CompilerVersion: 11.3.0
+CompilerVersion: 13.1.0
 
 # Dynamic analysis (MemCheck)
 PurifyCommand: 

@@ -1,8 +1,8 @@
 [
 {
-  "directory": "D:/aluno/Downloads/Trabalho T2 - Lista Encadeada OO (vale nota)/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -g -std=gnu++17 -o CMakeFiles\\main.dir\\main.cpp.obj -c \"D:\\aluno\\Downloads\\Trabalho T2 - Lista Encadeada OO (vale nota)\\main.cpp\"",
-  "file": "D:\\aluno\\Downloads\\Trabalho T2 - Lista Encadeada OO (vale nota)\\main.cpp",
+  "directory": "D:/Documentos/GitHub/UFSC_programacao-II/Trabalho T2 - Lista Encadeada OO (vale nota)/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -g -std=gnu++17 -o CMakeFiles\\main.dir\\main.cpp.obj -c \"D:\\Documentos\\GitHub\\UFSC_programacao-II\\Trabalho T2 - Lista Encadeada OO (vale nota)\\main.cpp\"",
+  "file": "D:\\Documentos\\GitHub\\UFSC_programacao-II\\Trabalho T2 - Lista Encadeada OO (vale nota)\\main.cpp",
   "output": "CMakeFiles\\main.dir\\main.cpp.obj"
 }
 ]
