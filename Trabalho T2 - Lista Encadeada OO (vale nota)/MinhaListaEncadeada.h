@@ -41,6 +41,7 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
         Elemento<T>* data = this->_primeiro;
 
         while(data != nullptr) {
+            
             if(data->dado == dado){
                 return i; 
             } 
@@ -56,12 +57,13 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
         Elemento<T>* data = this->_primeiro;
         
         while(data != nullptr) {
-            
+
             if(data->dado == dado)
                 return true;  
 
             data = data->proximo;
         }
+
         return false;
     }
 
@@ -74,21 +76,29 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
     };
 
     virtual void inserir(std::size_t posicao, T dado) {
-        if(posicao < 0 || posicao >= this->_tamanho)
+       
+        if(posicao < 0 || posicao > tamanho()){
             throw ExcecaoPosicaoInvalida();
-
+        }
+        else if (posicao == tamanho()){
+            inserirNoFim(dado);
+            return; 
+        }
+        
         size_t i = 0;
         Elemento<T>* data = this->_primeiro;
+        Elemento<T>* anterior = nullptr;
 
-        while(data->proximo != nullptr) { 
-            Elemento<T>* anterior = nullptr;
+        while(data != nullptr) { 
             
             if(posicao == i){
-               Elemento<T>* novo = new Elemento<T>(dado, data);
-               anterior->proximo = novo;
+               anterior->proximo = new Elemento<T>(dado, data);
+               this->_tamanho++;
             }
+
             anterior = data;
             data = data->proximo;
+            
             i++;
         }
     }
@@ -109,20 +119,92 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
         this->_tamanho++;
     }
 
-    virtual T removerDoInicio() {
-        return 0;
+    virtual T removerDoInicio() { 
+        
+        if (vazia())
+            throw ExcecaoListaEncadeadaVazia();
+        
+        Elemento<T>* primeiro = this->_primeiro;
+        
+        this->_primeiro = primeiro->proximo;
+        this->_tamanho--;
+        //retorna e chama remover() para remover???
+        return primeiro->dado;
     }
 
     virtual T removerDe(std::size_t posicao) {
-        return 0;
+
+        if(posicao < 0 || posicao >= tamanho()){
+            throw ExcecaoPosicaoInvalida();
+        } 
+        else if (posicao == tamanho()){
+            return removerDoFim();
+        }
+        
+        Elemento<T>* data = this->_primeiro;
+        Elemento<T>* anterior = nullptr;
+        size_t i = 0;
+
+        while(data != nullptr) { 
+            
+            if(posicao == i){
+               anterior->proximo = data->proximo;
+               T ultimo_dado = data->dado;
+               
+               this->_tamanho--;
+               
+               return ultimo_dado;
+            }
+
+            i++;
+            anterior = data;
+            data = anterior->proximo;
+        }
     }
 
     virtual T removerDoFim() {
-        return 0;
+        
+        if (this->vazia()){
+            throw ExcecaoListaEncadeadaVazia();
+        }
+
+        if (tamanho() == 1){
+            return removerDoInicio();
+        }
+
+        Elemento<T>* data = this->_primeiro;
+        Elemento<T>* penultimo = nullptr;
+
+        while (data->proximo != nullptr) {
+            penultimo = data;
+            data = data->proximo;
+        } 
+
+        penultimo->proximo = nullptr;
+        this->_tamanho--;
+
+        return ultimo->dado;
     };
-
+    
     virtual void remover(T dado) {
+        if(vazia())
+            throw ExcecaoListaEncadeadaVazia();
 
+        Elemento<T>* data = this->_primeiro;
+        Elemento<T>* anterior = nullptr;
+        
+        while(data != nullptr) {
+
+            if(data->dado == dado){
+                
+                anterior->proximo = data->proximo;         
+                this->_tamanho--;
+            }
+            anterior = data;
+            data = data->proximo;
+        }
+        
+        throw ExcecaoDadoInexistente();
     };
 };
 
