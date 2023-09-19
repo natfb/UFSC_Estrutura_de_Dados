@@ -131,6 +131,7 @@ TEST(TesteListaEncadeada, Insercao)
         
         for (Esperado<T> const& esperado: esperados)
         {
+
             ASSERT_EQ(lista->posicao(esperado.dado), esperado.posicao);
             ASSERT_TRUE(lista->contem(esperado.dado));
         }

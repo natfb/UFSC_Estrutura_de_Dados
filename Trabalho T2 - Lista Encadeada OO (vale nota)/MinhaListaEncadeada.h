@@ -40,9 +40,8 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
         size_t i = 0;
         Elemento<T>* data = this->_primeiro;
 
-        while(data != nullptr) {
-            
-            if(data->dado == dado){
+        while (data != nullptr) {
+            if (data->dado == dado) {
                 return i; 
             } 
             i++;
@@ -56,9 +55,8 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
         
         Elemento<T>* data = this->_primeiro;
         
-        while(data != nullptr) {
-
-            if(data->dado == dado)
+        while (data != nullptr) {
+            if (data->dado == dado)
                 return true;  
 
             data = data->proximo;
@@ -84,27 +82,17 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
             inserirNoInicio(dado);
             return;
         }
-        else if (posicao == tamanho()){
-            inserirNoFim(dado);
-            return; 
-        }
         
         size_t i = 0;
         Elemento<T>* data = this->_primeiro;
-        Elemento<T>* anterior = nullptr;
 
-        while(data != nullptr) { 
-            
-            if(posicao == i){
-               anterior->proximo = new Elemento<T>(dado, data);
-               this->_tamanho++;
-            }
-
-            anterior = data;
-            data = data->proximo;
-            
-            i++;
+        for(int i = 1; i < posicao; i++){
+            data = data->proximo;   
         }
+        
+        Elemento<T>* novo = new Elemento<T>(dado, data->proximo);
+        data->proximo = novo;
+        this->_tamanho++;
     }
 
     virtual void inserirNoFim(T dado) {
@@ -113,14 +101,8 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
             inserirNoInicio(dado);
             return;
         }
-
-        Elemento<T>* data = this->_primeiro;
-
-        while(data->proximo != nullptr) {
-            data = data->proximo;
-        }
-        data->proximo = new Elemento<T>(dado, nullptr);
-        this->_tamanho++;
+        
+        inserir(tamanho(), dado);
     }
 
     virtual T removerDoInicio() { 
@@ -142,17 +124,13 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
         } 
         
         Elemento<T>* data = this->_primeiro;
-        size_t i = 0;
 
-        while(data != nullptr) {         
-            if(posicao == i){
-                remover(data->dado);        
-                return data->dado;
-            }
-
-            i++;
+        for(int i = 0; i < posicao; i++){
             data = data->proximo;
         }
+
+        remover(data->dado);
+        return data->dado;
     }
 
     virtual T removerDoFim() {
@@ -175,7 +153,7 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
             throw ExcecaoListaEncadeadaVazia();
         
         Elemento<T>* data = this->_primeiro;
-        Elemento<T>* anterior = nullptr;
+        Elemento<T>* tmp = nullptr;
 
         //remover do inicio
         if(posicao(dado) == 0){
@@ -183,34 +161,18 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
             Elemento<T>* primeiro = this->_primeiro;
             this->_primeiro = primeiro->proximo;
             this->_tamanho--;
-
             return;
         }
-        //remover do fim
-        else if(tamanho() == posicao(dado) + 1){
-        
-            while (data->proximo != nullptr) {
-                anterior = data;
-                data = data->proximo;
-            } 
 
-            anterior->proximo = nullptr;
-            this->_tamanho--;
-            return;
-        }
-        //remover do meio
-        while(data != nullptr) {
-
-            if(data->dado == dado){
-                anterior->proximo = data->proximo;         
-                this->_tamanho--;
-                return;
-            }
-            anterior = data;
-            data = data->proximo;
+        //remover posicao > 1
+        for(int i = 1; i < posicao(dado); i++){
+            data = data->proximo;   
         }
         
-        throw ExcecaoDadoInexistente();
+        tmp = data;
+        data->proximo = tmp->proximo->proximo;
+        this->_tamanho--;
+        return;    
     };
 };
 
