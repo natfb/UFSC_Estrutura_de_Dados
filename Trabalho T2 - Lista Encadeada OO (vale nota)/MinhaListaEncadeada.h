@@ -23,6 +23,19 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
 {
     //Implemente aqui as funcões marcadas com virtual na ListaEncadeadaAbstrata
     //Lembre-se de implementar o construtor e destrutor da classe
+    ~MinhaListaEncadeada() {
+        if(vazia()) {
+            return;
+        }
+        Elemento<T>* data = this->_primeiro;
+        Elemento<T>* tmp = nullptr;
+        for (int i = 1; i < tamanho(); i++){
+            tmp = data->proximo;
+            delete data;
+            data = tmp;
+        }
+    }
+
     virtual std::size_t tamanho() const {
         return this->_tamanho;
     }
@@ -67,7 +80,7 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
 
     virtual void inserirNoInicio(T dado) {
 
-        Elemento<T>* novo = new Elemento<T>(dado, this->_primeiro);
+        Elemento<T>* novo = new Elemento(dado, this->_primeiro);
 
         this->_primeiro = novo;
         this->_tamanho++;
@@ -110,11 +123,11 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
         if (vazia())
             throw ExcecaoListaEncadeadaVazia();
         
-        Elemento<T>* primeiro = this->_primeiro;
+        T dado = this->_primeiro->dado;
         
-        remover(primeiro->dado);
+        remover(dado);
         
-        return primeiro->dado;
+        return dado;
     }
 
     virtual T removerDe(std::size_t posicao) {
@@ -128,9 +141,9 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
         for(int i = 0; i < posicao; i++){
             data = data->proximo;
         }
-
-        remover(data->dado);
-        return data->dado;
+        T dado = data->dado;
+        remover(dado);
+        return dado;
     }
 
     virtual T removerDoFim() {
@@ -143,9 +156,9 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
         while (data->proximo != nullptr) {
             data = data->proximo;
         } 
-
-        remover(data->dado);
-        return data->dado;
+        T dado = data->dado;
+        remover(dado);
+        return dado;
     };
     
     virtual void remover(T dado) {
@@ -157,10 +170,11 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
 
         //remover do inicio
         if(posicao(dado) == 0){
-            
             Elemento<T>* primeiro = this->_primeiro;
             this->_primeiro = primeiro->proximo;
+            delete primeiro;
             this->_tamanho--;
+            
             return;
         }
 
@@ -171,7 +185,9 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
         
         tmp = data;
         data->proximo = tmp->proximo->proximo;
+        delete tmp->proximo;
         this->_tamanho--;
+
         return;    
     };
 };
