@@ -185,7 +185,7 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
         
         tmp = data;
         data->proximo = tmp->proximo->proximo;
-        delete tmp->proximo;
+        //delete tmp->proximo;
         this->_tamanho--;
 
         return;    
