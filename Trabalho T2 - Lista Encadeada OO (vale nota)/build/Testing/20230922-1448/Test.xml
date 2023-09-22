@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Site BuildName="Win32-ninja"
-	BuildStamp="20230913-0003-Experimental"
+	BuildStamp="20230922-1448-Experimental"
 	Name="DESKTOP-UDK6HS6"
 	Generator="ctest-3.26.4"
 	CompilerName="C:/msys64/mingw64/bin/g++.exe"
@@ -18,17 +18,17 @@
 	ProcessorCacheSize="0"
 	NumberOfLogicalCPU="4"
 	NumberOfPhysicalCPU="4"
-	TotalVirtualMemory="15327"
+	TotalVirtualMemory="11743"
 	TotalPhysicalMemory="8159"
 	LogicalProcessorsPerPhysical="1"
 	ProcessorClockFrequency="3193"
 	>
 	<Testing>
-		<StartDateTime>Sep 12 21:03 Hora oficial do Brasil</StartDateTime>
-		<StartTestTime>1694563427</StartTestTime>
+		<StartDateTime>Sep 22 11:48 Hora oficial do Brasil</StartDateTime>
+		<StartTestTime>1695394104</StartTestTime>
 		<TestList/>
-		<EndDateTime>Sep 12 21:03 Hora oficial do Brasil</EndDateTime>
-		<EndTestTime>1694563427</EndTestTime>
+		<EndDateTime>Sep 22 11:48 Hora oficial do Brasil</EndDateTime>
+		<EndTestTime>1695394104</EndTestTime>
 		<ElapsedMinutes>0</ElapsedMinutes>
 	</Testing>
 </Site>

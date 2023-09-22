@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = C:\msys64\mingw64\bin\cmake.exe --regenerate-during-build -S"D:\Documentos\GitHub\UFSC_programacao-II\Trabalho T2 - Lista Encadeada OO (vale nota)" -B"D:\Documentos\GitHub\UFSC_programacao-II\Trabalho T2 - Lista Encadeada OO (vale nota)\build"
+  command = C:\msys64\mingw64\bin\cmake.exe --regenerate-during-build -S"D:\Documentos\GitHub\UFSC_Estrutura_de_Dados\Trabalho T2 - Lista Encadeada OO (vale nota)" -B"D:\Documentos\GitHub\UFSC_Estrutura_de_Dados\Trabalho T2 - Lista Encadeada OO (vale nota)\build"
   description = Re-running CMake...
   generator = 1
 

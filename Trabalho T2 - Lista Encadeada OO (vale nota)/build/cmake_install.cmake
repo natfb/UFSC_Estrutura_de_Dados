@@ -1,4 +1,4 @@
-# Install script for directory: D:/Documentos/GitHub/UFSC_programacao-II/Trabalho T2 - Lista Encadeada OO (vale nota)
+# Install script for directory: D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/Trabalho T2 - Lista Encadeada OO (vale nota)
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/Documentos/GitHub/UFSC_programacao-II/Trabalho T2 - Lista Encadeada OO (vale nota)/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/Trabalho T2 - Lista Encadeada OO (vale nota)/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

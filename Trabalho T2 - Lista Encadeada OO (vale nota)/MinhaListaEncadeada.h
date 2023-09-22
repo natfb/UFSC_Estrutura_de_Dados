@@ -66,6 +66,9 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
 
     virtual bool contem(T dado) const {
         
+        if (vazia())
+            return false;
+
         Elemento<T>* data = this->_primeiro;
         
         while (data != nullptr) {
@@ -183,9 +186,9 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
             data = data->proximo;   
         }
         
-        tmp = data;
-        data->proximo = tmp->proximo->proximo;
-        //delete tmp->proximo;
+        tmp = data->proximo;   
+        data->proximo = tmp->proximo;
+        delete tmp;
         this->_tamanho--;
 
         return;    

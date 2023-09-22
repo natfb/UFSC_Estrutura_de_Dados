@@ -4,8 +4,8 @@
 
 
 # Configuration directories and files
-SourceDirectory: D:/Documentos/GitHub/UFSC_programacao-II/Trabalho T2 - Lista Encadeada OO (vale nota)
-BuildDirectory: D:/Documentos/GitHub/UFSC_programacao-II/Trabalho T2 - Lista Encadeada OO (vale nota)/build
+SourceDirectory: D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/Trabalho T2 - Lista Encadeada OO (vale nota)
+BuildDirectory: D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/Trabalho T2 - Lista Encadeada OO (vale nota)/build
 
 # Where to place the cost data store
 CostDataFile: 
@@ -27,7 +27,7 @@ SubmitInactivityTimeout:
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "C:/msys64/mingw64/bin/cmake.exe" "D:/Documentos/GitHub/UFSC_programacao-II/Trabalho T2 - Lista Encadeada OO (vale nota)"
+ConfigureCommand: "C:/msys64/mingw64/bin/cmake.exe" "D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/Trabalho T2 - Lista Encadeada OO (vale nota)"
 MakeCommand: C:\msys64\mingw64\bin\cmake.exe --build . --config "${CTEST_CONFIGURATION_TYPE}"
 DefaultCTestConfigurationType: Release
 
