@@ -125,7 +125,6 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
             throw ExcecaoListaEncadeadaVazia();
         
         T dado = this->_primeiro->dado;
-        
         remover(dado);
         
         return dado;
