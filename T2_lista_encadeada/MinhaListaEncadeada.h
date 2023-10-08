@@ -11,7 +11,7 @@
 // ExcecaoDadoInexistente
 // ExcecaoListaEncadeadaVazia
 // ExcecaoNaoImplementado
-// ExcecaoPosicaoInvalida
+// ExcecaoPosicaoInval[ ida
 
 /**
  * @brief Uma lista encadeada de dados.
