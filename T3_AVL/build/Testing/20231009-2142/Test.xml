@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Win32-ninja"
+	BuildStamp="20231009-2142-Experimental"
+	Name="DESKTOP-UDK6HS6"
+	Generator="ctest-3.26.4"
+	CompilerName="C:/msys64/mingw64/bin/g++.exe"
+	CompilerVersion="13.1.0"
+	OSName="Windows"
+	Hostname="DESKTOP-UDK6HS6"
+	OSRelease=" Professional"
+	OSVersion=" (Build 19045)"
+	OSPlatform="AMD64"
+	Is64Bits="1"
+	VendorString=""
+	VendorID="Unknown Manufacturer"
+	FamilyID="0"
+	ModelID="0"
+	ProcessorCacheSize="0"
+	NumberOfLogicalCPU="4"
+	NumberOfPhysicalCPU="4"
+	TotalVirtualMemory="11487"
+	TotalPhysicalMemory="8159"
+	LogicalProcessorsPerPhysical="1"
+	ProcessorClockFrequency="3193"
+	>
+	<Testing>
+		<StartDateTime>Oct 09 18:42 Hora oficial do Brasil</StartDateTime>
+		<StartTestTime>1696887777</StartTestTime>
+		<TestList/>
+		<EndDateTime>Oct 09 18:42 Hora oficial do Brasil</EndDateTime>
+		<EndTestTime>1696887777</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

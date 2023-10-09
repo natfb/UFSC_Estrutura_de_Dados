@@ -37,8 +37,7 @@ class MinhaListaEncadeada: public ListaEncadeadaAbstrata<T>
     }
 
     virtual bool vazia() const {
-        return (this->_primeiro == nullptr);
-            
+        return (this->_primeiro == nullptr);       
     }
 
     virtual std::size_t posicao(T dado) const {
