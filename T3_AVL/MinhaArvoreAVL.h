@@ -16,15 +16,44 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
     };
 
     virtual bool vazia() const {
-        return true;
+        return !this->raiz;
     };
     
     virtual int quantidade() const {
-        return 0;
+        Nodo<T>* raiz = this->raiz;
+
+        Nodo<T>* busca (T dado, raiz){
+            if (raiz == nullptr){ 
+                return 0;
+            }
+        
+            if (raiz->chave < chave) {
+                return busca(dado, raiz->_filhoDireita);
+            } 
+            else {
+                return busca(dado, raiz->_filhoEsquerda);
+            }        
+       }
     };
     
     virtual bool contem(T chave) const {
-        return true;
+
+        Nodo<T>* raiz = this->raiz;
+        
+        while (raiz != nullptr && raiz->chave != chave){
+            // Esquerda ou direita.
+            if (raiz->chave < chave){
+                raiz = raiz->filhoDireita;
+            } else { 
+                raiz = raiz->filhoEsquerda;
+            }
+        }
+
+        if (raiz->chave == chave){
+            return true;
+        }
+
+        return false;
     };
     
     virtual std::optional<int> altura(T chave) const {

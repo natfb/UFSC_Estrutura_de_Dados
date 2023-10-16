@@ -103,3 +103,5 @@ template<typename T>
 ArvoreBinariaDeBusca<T>::~ArvoreBinariaDeBusca() = default; //atribui destrutor padrao do C++.
 
 #endif
+
+
