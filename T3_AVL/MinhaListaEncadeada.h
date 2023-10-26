@@ -6,6 +6,7 @@
 template <typename T>
 class MinhaListaEncadeada :  public ListaEncadeadaAbstrata<T>
 {
+    public:
     ~MinhaListaEncadeada(){
         Elemento<T>* data = this->_primeiro;
         Elemento<T>* tmp = nullptr;

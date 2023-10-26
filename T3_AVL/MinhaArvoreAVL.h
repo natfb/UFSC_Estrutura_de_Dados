@@ -19,22 +19,17 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
         return !this->raiz;
     };
     
-    int quantidade() const {
+    int quant(Nodo<T>* raiz) const {
+            if (raiz == nullptr) {
+                return 0;
+            }
+            return 1 + quant(raiz->filhoEsquerda) + quant(raiz->filhoDireita);
+    }
+    
+    virtual int quantidade() const {
         Nodo<T>* raiz = this->raiz;
 
-    //     Nodo<T>* busca (T dado, raiz){
-    //         if (raiz == nullptr){ 
-    //             return 0;
-    //         }
-        
-    //         if (raiz->chave < chave) {
-    //             return busca(dado, raiz->_filhoDireita);
-    //         } 
-    //         else {
-    //             return busca(dado, raiz->_filhoEsquerda);
-    //         }        
-    //    }
-        return 0;
+        return quant(raiz);
     };
     
     bool contem(T chave) const {
@@ -119,26 +114,60 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
 
         return raiz->filhoDireita->chave;
     };
-
-    ListaEncadeadaAbstrata<T>* emOrdem() const { 
-        return nullptr;
-    };
-
-    ListaEncadeadaAbstrata<T>* preOrdem() const {
-        // void Preordem(Nodo *raiz, ListaEncadeada* lista)
-        // início
-        // se raiz != NULO então
-        // adicionaNoFim(lista, raiz->_dado);
-        // Preordem(raiz->_filhoEsquerda, 		lista);
-        // Preordem(raiz->_filhoDireita, 	lista);
-        // fim se
-        // fim
+    
+    void Emordem(Nodo<T>*raiz, MinhaListaEncadeada<T>* lista) const {
+        if(!raiz){
+            return;
+        }
         
-        return nullptr;
+        Emordem(raiz->filhoEsquerda, lista); 
+        lista->inserirNoFim(raiz->chave);
+        Emordem(raiz->filhoDireita, lista);
+    };
+    
+    virtual ListaEncadeadaAbstrata<T>* emOrdem() const { 
+        MinhaListaEncadeada<T> *lista = new MinhaListaEncadeada<T>();
+        Nodo<T>* raiz = this->raiz;
+
+        Emordem(raiz, lista);
+
+        return lista;
     };
 
-    ListaEncadeadaAbstrata<T>* posOrdem() const {
-        return nullptr;
+    void Preordem(Nodo<T>*raiz, MinhaListaEncadeada<T>* lista) const {
+        if(!raiz){
+            return;
+        }
+        lista->inserirNoFim(raiz->chave);
+        Preordem(raiz->filhoEsquerda, lista);
+        Preordem(raiz->filhoDireita, lista);
+    };
+
+    virtual ListaEncadeadaAbstrata<T>* preOrdem() const {
+        MinhaListaEncadeada<T> *lista = new MinhaListaEncadeada<T>();
+        Nodo<T>* raiz = this->raiz;
+
+        Preordem(raiz, lista);
+
+        return lista;
+    };
+
+    void Posordem(Nodo<T>*raiz, MinhaListaEncadeada<T>* lista) const {
+        if(!raiz){
+            return;
+        }
+        Posordem(raiz->filhoDireita, lista);
+        lista->inserirNoFim(raiz->chave);
+        Posordem(raiz->filhoEsquerda, lista);
+    };
+
+    virtual ListaEncadeadaAbstrata<T>* posOrdem() const {
+        MinhaListaEncadeada<T> *lista = new MinhaListaEncadeada<T>();
+        Nodo<T>* raiz = this->raiz;
+
+        Posordem(raiz, lista);
+
+        return lista;
     };
 };
 
