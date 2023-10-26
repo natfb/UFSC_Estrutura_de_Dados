@@ -4,14 +4,14 @@
 
 
 # Configuration directories and files
-SourceDirectory: D:/aluno/Downloads/UFSC_Estrutura_de_Dados-main/UFSC_Estrutura_de_Dados-main/T3_AVL
-BuildDirectory: D:/aluno/Downloads/UFSC_Estrutura_de_Dados-main/UFSC_Estrutura_de_Dados-main/T3_AVL/build
+SourceDirectory: D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T3_AVL
+BuildDirectory: D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T3_AVL/build
 
 # Where to place the cost data store
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: UFSC-LAB120
+Site: DESKTOP-UDK6HS6
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
 BuildName: Win32-ninja
@@ -27,7 +27,7 @@ SubmitInactivityTimeout:
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "C:/msys64/mingw64/bin/cmake.exe" "D:/aluno/Downloads/UFSC_Estrutura_de_Dados-main/UFSC_Estrutura_de_Dados-main/T3_AVL"
+ConfigureCommand: "C:/msys64/mingw64/bin/cmake.exe" "D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T3_AVL"
 MakeCommand: C:\msys64\mingw64\bin\cmake.exe --build . --config "${CTEST_CONFIGURATION_TYPE}"
 DefaultCTestConfigurationType: Release
 
@@ -63,8 +63,8 @@ UpdateOptions:
 UpdateType: 
 
 # Compiler info
-Compiler: C:/msys64/mingw64/bin/g++.exe
-CompilerVersion: 11.3.0
+Compiler: C:/msys64/mingw64/bin/x86_64-w64-mingw32-g++.exe
+CompilerVersion: 13.1.0
 
 # Dynamic analysis (MemCheck)
 PurifyCommand: 
@@ -81,7 +81,7 @@ MemoryCheckCommandOptions:
 MemoryCheckSuppressionFile: 
 
 # Coverage
-CoverageCommand: C:/msys64/mingw64/bin/gcov.exe
+CoverageCommand: C:/MinGW/bin/gcov.exe
 CoverageExtraFlags: -l
 
 # Testing options

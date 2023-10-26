@@ -15,32 +15,54 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
 
     };
 
-    virtual bool vazia() const {
+    bool vazia() const {
         return !this->raiz;
     };
     
-    virtual int quantidade() const {
+    int quantidade() const {
         Nodo<T>* raiz = this->raiz;
 
-        Nodo<T>* busca (T dado, raiz){
-            if (raiz == nullptr){ 
-                return 0;
-            }
+    //     Nodo<T>* busca (T dado, raiz){
+    //         if (raiz == nullptr){ 
+    //             return 0;
+    //         }
         
-            if (raiz->chave < chave) {
-                return busca(dado, raiz->_filhoDireita);
-            } 
-            else {
-                return busca(dado, raiz->_filhoEsquerda);
-            }        
-       }
+    //         if (raiz->chave < chave) {
+    //             return busca(dado, raiz->_filhoDireita);
+    //         } 
+    //         else {
+    //             return busca(dado, raiz->_filhoEsquerda);
+    //         }        
+    //    }
+        return 0;
     };
     
-    virtual bool contem(T chave) const {
+    bool contem(T chave) const {
 
         Nodo<T>* raiz = this->raiz;
         
         while (raiz != nullptr && raiz->chave != chave){
+            // Esquerda ou direita.
+            if (raiz->chave == chave) {
+                return true;
+            } else if (raiz->chave < chave) {
+                raiz = raiz->filhoDireita;
+            } else { 
+                raiz = raiz->filhoEsquerda;
+            }
+        }
+
+        return false;
+    };
+    
+    std::optional<int> altura(T chave) const {
+        
+        if (!this->contem(chave))
+            return std::nullopt;
+        
+        Nodo<T>* raiz = this->raiz;
+        
+        while (raiz != nullptr && raiz->chave != chave) {
             // Esquerda ou direita.
             if (raiz->chave < chave){
                 raiz = raiz->filhoDireita;
@@ -49,42 +71,73 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
             }
         }
 
-        if (raiz->chave == chave){
-            return true;
-        }
-
-        return false;
-    };
-    
-    virtual std::optional<int> altura(T chave) const {
-        return 0;
+        return raiz->altura;
     };
        
-    virtual void inserir(T chave) {
+    void inserir(T chave) {
         
     };
       
-    virtual void remover(T chave) {
+    void remover(T chave) {
 
     };
 
-    virtual std::optional<T> filhoEsquerdaDe(T chave) const {
-        return  0;
+    std::optional<T> filhoEsquerdaDe(T chave) const {
+        
+        if (!this->contem(chave))
+            return std::nullopt;
+        
+        Nodo<T>* raiz = this->raiz;
+        
+        while (raiz != nullptr && raiz->chave != chave) {
+            // Esquerda ou direita.
+            if (raiz->chave < chave){
+                raiz = raiz->filhoDireita;
+            } else { 
+                raiz = raiz->filhoEsquerda;
+            }
+        }
+
+        return raiz->filhoEsquerda->chave;
     };
        
-    virtual std::optional<T> filhoDireitaDe(T chave) const {
-        return  0;
+    std::optional<T> filhoDireitaDe(T chave) const {
+        
+        if (!this->contem(chave))
+            return std::nullopt;
+        
+        Nodo<T>* raiz = this->raiz;
+        
+        while (raiz != nullptr && raiz->chave != chave) {
+            // Esquerda ou direita.
+            if (raiz->chave < chave){
+                raiz = raiz->filhoDireita;
+            } else { 
+                raiz = raiz->filhoEsquerda;
+            }
+        }
+
+        return raiz->filhoDireita->chave;
     };
 
-    virtual ListaEncadeadaAbstrata<T>* emOrdem() const { 
+    ListaEncadeadaAbstrata<T>* emOrdem() const { 
         return nullptr;
     };
 
-    virtual ListaEncadeadaAbstrata<T>* preOrdem() const {
+    ListaEncadeadaAbstrata<T>* preOrdem() const {
+        // void Preordem(Nodo *raiz, ListaEncadeada* lista)
+        // início
+        // se raiz != NULO então
+        // adicionaNoFim(lista, raiz->_dado);
+        // Preordem(raiz->_filhoEsquerda, 		lista);
+        // Preordem(raiz->_filhoDireita, 	lista);
+        // fim se
+        // fim
+        
         return nullptr;
     };
 
-    virtual ListaEncadeadaAbstrata<T>* posOrdem() const {
+    ListaEncadeadaAbstrata<T>* posOrdem() const {
         return nullptr;
     };
 };

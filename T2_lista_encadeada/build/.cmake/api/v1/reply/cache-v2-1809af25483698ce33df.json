@@ -83,7 +83,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "d:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T3_AVL/build"
+			"value" : "d:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T2_lista_encadeada/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -175,7 +175,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/msys64/mingw64/bin/g++.exe"
+			"value" : "C:/msys64/mingw64/bin/x86_64-w64-mingw32-g++.exe"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER_AR",
@@ -191,7 +191,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/msys64/mingw64/bin/gcc-ar.exe"
+			"value" : "C:/msys64/mingw64/bin/x86_64-w64-mingw32-gcc-ar.exe"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER_RANLIB",
@@ -207,7 +207,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/msys64/mingw64/bin/gcc-ranlib.exe"
+			"value" : "C:/msys64/mingw64/bin/x86_64-w64-mingw32-gcc-ranlib.exe"
 		},
 		{
 			"name" : "CMAKE_CXX_FLAGS",
@@ -319,7 +319,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/msys64/mingw64/bin/gcc.exe"
+			"value" : "C:/msys64/mingw64/bin/x86_64-w64-mingw32-gcc.exe"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER_AR",
@@ -335,7 +335,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/msys64/mingw64/bin/gcc-ar.exe"
+			"value" : "C:/msys64/mingw64/bin/x86_64-w64-mingw32-gcc-ar.exe"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER_RANLIB",
@@ -351,7 +351,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/msys64/mingw64/bin/gcc-ranlib.exe"
+			"value" : "C:/msys64/mingw64/bin/x86_64-w64-mingw32-gcc-ranlib.exe"
 		},
 		{
 			"name" : "CMAKE_C_FLAGS",
@@ -574,6 +574,10 @@
 			"properties" : 
 			[
 				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
 					"name" : "HELPSTRING",
 					"value" : "No help, variable specified on the command line."
 				}
@@ -603,7 +607,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T3_AVL/build/CMakeFiles/pkgRedirects"
+			"value" : "D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T2_lista_encadeada/build/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -675,7 +679,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T3_AVL"
+			"value" : "D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T2_lista_encadeada"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -999,7 +1003,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/msys64/mingw64/bin/windres.exe"
+			"value" : "C:/MinGW/bin/windres.exe"
 		},
 		{
 			"name" : "CMAKE_RC_COMPILER_WORKS",
@@ -1359,7 +1363,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/msys64/mingw64/bin/gcov.exe"
+			"value" : "C:/MinGW/bin/gcov.exe"
 		},
 		{
 			"name" : "COVERAGE_EXTRA_FLAGS",
@@ -2211,7 +2215,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T3_AVL/build"
+			"value" : "D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T2_lista_encadeada/build"
 		},
 		{
 			"name" : "dec0006_IS_TOP_LEVEL",
@@ -2235,7 +2239,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T3_AVL"
+			"value" : "D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T2_lista_encadeada"
 		},
 		{
 			"name" : "pkgcfg_lib_GTEST_gtest",

@@ -1,7 +1,7 @@
 [
 {
   "directory": "D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T2_lista_encadeada/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -g -std=gnu++17 -o CMakeFiles\\main.dir\\main.cpp.obj -c D:\\Documentos\\GitHub\\UFSC_Estrutura_de_Dados\\T2_lista_encadeada\\main.cpp",
+  "command": "C:\\msys64\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe -g -std=gnu++17 -o CMakeFiles\\main.dir\\main.cpp.obj -c D:\\Documentos\\GitHub\\UFSC_Estrutura_de_Dados\\T2_lista_encadeada\\main.cpp",
   "file": "D:\\Documentos\\GitHub\\UFSC_Estrutura_de_Dados\\T2_lista_encadeada\\main.cpp",
   "output": "CMakeFiles\\main.dir\\main.cpp.obj"
 }

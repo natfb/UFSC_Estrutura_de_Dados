@@ -41,7 +41,7 @@
 						"kernel32"
 					]
 				},
-				"path" : "C:/msys64/mingw64/bin/gcc.exe",
+				"path" : "C:/msys64/mingw64/bin/x86_64-w64-mingw32-gcc.exe",
 				"version" : "13.1.0"
 			},
 			"language" : "C",
@@ -96,7 +96,7 @@
 						"kernel32"
 					]
 				},
-				"path" : "C:/msys64/mingw64/bin/g++.exe",
+				"path" : "C:/msys64/mingw64/bin/x86_64-w64-mingw32-g++.exe",
 				"version" : "13.1.0"
 			},
 			"language" : "CXX",
@@ -119,7 +119,7 @@
 			"compiler" : 
 			{
 				"implicit" : {},
-				"path" : "C:/msys64/mingw64/bin/windres.exe"
+				"path" : "C:/MinGW/bin/windres.exe"
 			},
 			"language" : "RC",
 			"sourceFileExtensions" : 
