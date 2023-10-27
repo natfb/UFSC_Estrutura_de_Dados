@@ -18,14 +18,7 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
     bool vazia() const {
         return !this->raiz;
     };
-    
-    int quant(Nodo<T>* raiz) const {
-            if (raiz == nullptr) {
-                return 0;
-            }
-            return 1 + quant(raiz->filhoEsquerda) + quant(raiz->filhoDireita);
-    }
-    
+
     virtual int quantidade() const {
         Nodo<T>* raiz = this->raiz;
 
@@ -115,16 +108,6 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
         return raiz->filhoDireita->chave;
     };
     
-    void Emordem(Nodo<T>*raiz, MinhaListaEncadeada<T>* lista) const {
-        if(!raiz){
-            return;
-        }
-        
-        Emordem(raiz->filhoEsquerda, lista); 
-        lista->inserirNoFim(raiz->chave);
-        Emordem(raiz->filhoDireita, lista);
-    };
-    
     virtual ListaEncadeadaAbstrata<T>* emOrdem() const { 
         MinhaListaEncadeada<T> *lista = new MinhaListaEncadeada<T>();
         Nodo<T>* raiz = this->raiz;
@@ -132,15 +115,6 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
         Emordem(raiz, lista);
 
         return lista;
-    };
-
-    void Preordem(Nodo<T>*raiz, MinhaListaEncadeada<T>* lista) const {
-        if(!raiz){
-            return;
-        }
-        lista->inserirNoFim(raiz->chave);
-        Preordem(raiz->filhoEsquerda, lista);
-        Preordem(raiz->filhoDireita, lista);
     };
 
     virtual ListaEncadeadaAbstrata<T>* preOrdem() const {
@@ -152,15 +126,6 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
         return lista;
     };
 
-    void Posordem(Nodo<T>*raiz, MinhaListaEncadeada<T>* lista) const {
-        if(!raiz){
-            return;
-        }
-        Posordem(raiz->filhoDireita, lista);
-        lista->inserirNoFim(raiz->chave);
-        Posordem(raiz->filhoEsquerda, lista);
-    };
-
     virtual ListaEncadeadaAbstrata<T>* posOrdem() const {
         MinhaListaEncadeada<T> *lista = new MinhaListaEncadeada<T>();
         Nodo<T>* raiz = this->raiz;
@@ -168,6 +133,43 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
         Posordem(raiz, lista);
 
         return lista;
+    };
+
+    //funcoes auxiliares/////////////////////////////////////////////
+        
+    int quant(Nodo<T>* raiz) const {
+        if (raiz == nullptr) {
+            return 0;
+        }
+        return 1 + quant(raiz->filhoEsquerda) + quant(raiz->filhoDireita);
+    }
+
+    void Emordem(Nodo<T>*raiz, MinhaListaEncadeada<T>* lista) const {
+        if(!raiz){
+            return;
+        }
+        
+        Emordem(raiz->filhoEsquerda, lista); 
+        lista->inserirNoFim(raiz->chave);
+        Emordem(raiz->filhoDireita, lista);
+    };
+
+    void Preordem(Nodo<T>*raiz, MinhaListaEncadeada<T>* lista) const {
+        if(!raiz){
+            return;
+        }
+        lista->inserirNoFim(raiz->chave);
+        Preordem(raiz->filhoEsquerda, lista);
+        Preordem(raiz->filhoDireita, lista);
+    };
+
+    void Posordem(Nodo<T>*raiz, MinhaListaEncadeada<T>* lista) const {
+        if(!raiz){
+            return;
+        }
+        Posordem(raiz->filhoDireita, lista);
+        lista->inserirNoFim(raiz->chave);
+        Posordem(raiz->filhoEsquerda, lista);
     };
 };
 
