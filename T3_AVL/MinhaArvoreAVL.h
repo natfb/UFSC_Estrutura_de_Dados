@@ -2,7 +2,7 @@
 #define MINHA_ARVORE_AVL_HPP
 
 #include "ArvoreBinariaDeBusca.h"
-
+#include <algorithm>
 /**
  * @brief Representa uma árvore AVL.
  * 
@@ -27,18 +27,22 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
     
     bool contem(T chave) const {
 
+        if (vazia())
+            return false;
+        
         Nodo<T>* raiz = this->raiz;
         
         while (raiz != nullptr && raiz->chave != chave){
             // Esquerda ou direita.
-            if (raiz->chave == chave) {
-                return true;
-            } else if (raiz->chave < chave) {
+            if (raiz->chave < chave) {
                 raiz = raiz->filhoDireita;
             } else { 
                 raiz = raiz->filhoEsquerda;
             }
         }
+
+        if (raiz->chave == chave) 
+            return true;
 
         return false;
     };
@@ -61,13 +65,20 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
 
         return raiz->altura;
     };
-       
+
     void inserir(T chave) {
-        
+        Nodo<T>* raiz = this->raiz;
+        Nodo<T>* novo = new Nodo<T>;
+        novo->chave = chave;
+        inserirAux(novo, raiz);
+        atualizarAltura(raiz);
     };
       
     void remover(T chave) {
+        if (!contem(chave))
+            return;
 
+        
     };
 
     std::optional<T> filhoEsquerdaDe(T chave) const {
@@ -85,6 +96,9 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
                 raiz = raiz->filhoEsquerda;
             }
         }
+
+        if (!raiz->filhoEsquerda) 
+            return std::nullopt;
 
         return raiz->filhoEsquerda->chave;
     };
@@ -105,6 +119,9 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
             }
         }
 
+        if (!raiz->filhoDireita) 
+            return std::nullopt;
+
         return raiz->filhoDireita->chave;
     };
     
@@ -112,7 +129,7 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
         MinhaListaEncadeada<T> *lista = new MinhaListaEncadeada<T>();
         Nodo<T>* raiz = this->raiz;
 
-        Emordem(raiz, lista);
+        emOrdem(raiz, lista);
 
         return lista;
     };
@@ -121,7 +138,7 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
         MinhaListaEncadeada<T> *lista = new MinhaListaEncadeada<T>();
         Nodo<T>* raiz = this->raiz;
 
-        Preordem(raiz, lista);
+        preOrdem(raiz, lista);
 
         return lista;
     };
@@ -130,47 +147,98 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
         MinhaListaEncadeada<T> *lista = new MinhaListaEncadeada<T>();
         Nodo<T>* raiz = this->raiz;
 
-        Posordem(raiz, lista);
+        posOrdem(raiz, lista);
 
         return lista;
     };
 
     //funcoes auxiliares/////////////////////////////////////////////
-        
+    //quantidade////////////////////////////////////////////////////
     int quant(Nodo<T>* raiz) const {
         if (raiz == nullptr) {
             return 0;
         }
         return 1 + quant(raiz->filhoEsquerda) + quant(raiz->filhoDireita);
     }
-
-    void Emordem(Nodo<T>*raiz, MinhaListaEncadeada<T>* lista) const {
+    
+    //Em Ordem/////////////////////////////////////////////////////////
+    void emOrdem(Nodo<T>*raiz, MinhaListaEncadeada<T>* lista) const {
         if(!raiz){
             return;
         }
         
-        Emordem(raiz->filhoEsquerda, lista); 
+        emOrdem(raiz->filhoEsquerda, lista); 
         lista->inserirNoFim(raiz->chave);
-        Emordem(raiz->filhoDireita, lista);
+        emOrdem(raiz->filhoDireita, lista);
     };
 
-    void Preordem(Nodo<T>*raiz, MinhaListaEncadeada<T>* lista) const {
+    //Pre Ordem//////////////////////////////////////////////////////////
+    void preOrdem(Nodo<T>*raiz, MinhaListaEncadeada<T>* lista) const {
         if(!raiz){
             return;
         }
         lista->inserirNoFim(raiz->chave);
-        Preordem(raiz->filhoEsquerda, lista);
-        Preordem(raiz->filhoDireita, lista);
+        preOrdem(raiz->filhoEsquerda, lista);
+        preOrdem(raiz->filhoDireita, lista);
     };
 
-    void Posordem(Nodo<T>*raiz, MinhaListaEncadeada<T>* lista) const {
+    //Pos Ordem///////////////////////////////////////////////////////
+    void posOrdem(Nodo<T>*raiz, MinhaListaEncadeada<T>* lista) const {
         if(!raiz){
             return;
         }
-        Posordem(raiz->filhoDireita, lista);
+        posOrdem(raiz->filhoEsquerda, lista);
+        posOrdem(raiz->filhoDireita, lista);
         lista->inserirNoFim(raiz->chave);
-        Posordem(raiz->filhoEsquerda, lista);
     };
+
+    //inserir
+    void inserirAux(Nodo<T>* novo, Nodo<T>* raiz) {
+        if (vazia()) {
+            this->raiz = novo;
+            return;
+        }
+
+        if (raiz->chave < novo->chave) {
+            if (!raiz->filhoDireita) {     
+                raiz->filhoDireita = novo;  
+                return;
+            }
+
+            inserirAux(novo, raiz->filhoDireita); 
+        } 
+        else {
+            if (!raiz->filhoEsquerda) {
+                raiz->filhoEsquerda = novo;  
+                return;
+            }
+
+            inserirAux(novo, raiz->filhoEsquerda);
+        }
+    }
+
+    // atualizar altura ////////////////////////////////////
+    int atualizarAltura(Nodo<T>* raiz) {
+        if (!raiz) {
+            return -1;
+        }
+        int altura_esquerda = atualizarAltura(raiz->filhoEsquerda);
+        int altura_direita = atualizarAltura(raiz->filhoDireita);
+
+        return raiz->altura = std::max(altura_esquerda, altura_direita) + 1;
+    }
+
+    //remocao ////////////////////////////////////////////////
+    void removerAux(T chave, Nodo<T>* raiz) {
+        if (raiz->chave == chave) {
+
+        }
+        if (raiz->chave < chave) {
+            removerAux(chave, raiz->filhoDireita);
+        } else {
+            removerAux(chave, raiz->filhoEsquerda);
+        }
+    }
 };
 
 #endif
