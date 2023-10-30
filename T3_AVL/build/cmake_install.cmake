@@ -1,4 +1,4 @@
-# Install script for directory: D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T3_AVL
+# Install script for directory: D:/aluno/Downloads/UFSC_Estrutura_de_Dados-main (1)/UFSC_Estrutura_de_Dados-main/T3_AVL
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T3_AVL/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/aluno/Downloads/UFSC_Estrutura_de_Dados-main (1)/UFSC_Estrutura_de_Dados-main/T3_AVL/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -71,7 +71,6 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
         Nodo<T>* novo = new Nodo<T>;
         novo->chave = chave;
         inserirAux(novo, raiz);
-        atualizarAltura(raiz);
     };
       
     void remover(T chave) {
@@ -192,7 +191,7 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
         lista->inserirNoFim(raiz->chave);
     };
 
-    //inserir
+    //inserir/////////////////////////////////////////////////////////
     void inserirAux(Nodo<T>* novo, Nodo<T>* raiz) {
         if (vazia()) {
             this->raiz = novo;
@@ -200,32 +199,73 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
         }
 
         if (raiz->chave < novo->chave) {
-            if (!raiz->filhoDireita) {     
+            if (raiz->filhoDireita == nullptr) {     
                 raiz->filhoDireita = novo;  
-                return;
-            }
-
-            inserirAux(novo, raiz->filhoDireita); 
+            } else {
+                inserirAux(novo, raiz->filhoDireita); 
+            }         
         } 
         else {
-            if (!raiz->filhoEsquerda) {
+            if (raiz->filhoEsquerda == nullptr) {
                 raiz->filhoEsquerda = novo;  
-                return;
-            }
+            } else {
+                inserirAux(novo, raiz->filhoEsquerda);
+            } 
+        }
 
-            inserirAux(novo, raiz->filhoEsquerda);
+        atualizarAltura(raiz);
+        int altEsq, altDir;
+        altEsq = -1;
+        if (raiz->filhoEsquerda) {
+            altEsq = raiz->filhoEsquerda->altura;
+        }
+        
+        altDir = -1;
+        if (raiz->filhoDireita) {
+            altDir = raiz->filhoDireita->altura;
+        }
+        if (altEsq - altDir < -1) {
+            rotacaoDireitaSimples(raiz);
+        } else if (altEsq - altDir > 1) {
+            rotacaoEsquerdaSimples(raiz);
         }
     }
 
-    // atualizar altura ////////////////////////////////////
-    int atualizarAltura(Nodo<T>* raiz) {
-        if (!raiz) {
-            return -1;
-        }
-        int altura_esquerda = atualizarAltura(raiz->filhoEsquerda);
-        int altura_direita = atualizarAltura(raiz->filhoDireita);
+    void rotacaoDireitaSimples(Nodo<T>* raiz) {
 
-        return raiz->altura = std::max(altura_esquerda, altura_direita) + 1;
+    }
+
+    void rotacaoEsquerdaSimples(Nodo<T>* raiz) {   
+        
+        Nodo<T>* tmp = raiz->filhoEsquerda;
+        Nodo<T>* tmp2 = raiz;
+        raiz->filhoEsquerda = tmp->filhoEsquerda;
+        tmp->filhoEsquerda = tmp2;
+    }
+
+    Nodo<T>* returnaPai(Nodo<T>* raiz) {
+        if (raiz->filhoEsquerda == raiz || raiz->filhoDireita == raiz) {
+            return raiz;
+        }
+        if (raiz->chave < chave->chave) {
+            removerAux(raiz->filhoDireita);
+        } else {
+            removerAux(raiz->filhoEsquerda);
+        }
+    }
+    // atualizar altura ////////////////////////////////////
+    void atualizarAltura(Nodo<T>* raiz) {
+        int altEsq, altDir;
+        altEsq = -1;
+        if (raiz->filhoEsquerda) {
+            altEsq = raiz->filhoEsquerda->altura;
+        }
+        
+        altDir = -1;
+        if (raiz->filhoDireita) {
+            altDir = raiz->filhoDireita->altura;
+        }
+        raiz->altura = std::max(altEsq, altDir) + 1;
     }
 
     //remocao ////////////////////////////////////////////////

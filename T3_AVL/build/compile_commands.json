@@ -1,8 +1,8 @@
 [
 {
-  "directory": "D:/Documentos/GitHub/UFSC_Estrutura_de_Dados/T3_AVL/build",
-  "command": "C:\\msys64\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe -g -std=gnu++17 -o CMakeFiles\\main.dir\\main.cpp.obj -c D:\\Documentos\\GitHub\\UFSC_Estrutura_de_Dados\\T3_AVL\\main.cpp",
-  "file": "D:\\Documentos\\GitHub\\UFSC_Estrutura_de_Dados\\T3_AVL\\main.cpp",
+  "directory": "D:/aluno/Downloads/UFSC_Estrutura_de_Dados-main (1)/UFSC_Estrutura_de_Dados-main/T3_AVL/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -g -std=gnu++17 -o CMakeFiles\\main.dir\\main.cpp.obj -c \"D:\\aluno\\Downloads\\UFSC_Estrutura_de_Dados-main (1)\\UFSC_Estrutura_de_Dados-main\\T3_AVL\\main.cpp\"",
+  "file": "D:\\aluno\\Downloads\\UFSC_Estrutura_de_Dados-main (1)\\UFSC_Estrutura_de_Dados-main\\T3_AVL\\main.cpp",
   "output": "CMakeFiles\\main.dir\\main.cpp.obj"
 }
 ]
