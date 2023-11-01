@@ -32,7 +32,7 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
         
         Nodo<T>* raiz = this->raiz;
         
-        while (raiz != nullptr && raiz->chave != chave){
+        while (raiz != nullptr && raiz->chave != chave) {
             // Esquerda ou direita.
             if (raiz->chave < chave) {
                 raiz = raiz->filhoDireita;
@@ -41,10 +41,10 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
             }
         }
 
-        if (raiz->chave == chave) 
-            return true;
+        if (raiz == nullptr) 
+            return false;
 
-        return false;
+        return true;
     };
     
     std::optional<int> altura(T chave) const {
@@ -215,56 +215,75 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
 
         atualizarAltura(raiz);
         int altEsq, altDir;
-        altEsq = -1;
+        altEsq = altDir = -1;
+
         if (raiz->filhoEsquerda) {
             altEsq = raiz->filhoEsquerda->altura;
         }
-        
-        altDir = -1;
+
         if (raiz->filhoDireita) {
             altDir = raiz->filhoDireita->altura;
         }
-        if (altEsq - altDir < -1) {
+        if (altEsq - altDir > 1) {
             rotacaoDireitaSimples(raiz);
-        } else if (altEsq - altDir > 1) {
+            atualizarAltura(raiz);
+        } else if (altEsq - altDir < -1) {
             rotacaoEsquerdaSimples(raiz);
+            atualizarAltura(raiz);
         }
     }
 
     void rotacaoDireitaSimples(Nodo<T>* raiz) {
+        Nodo<T>* pai = retornaPai(raiz);
+        Nodo<T>* filho = pai->filhoEsquerda;
+        Nodo<T>* filhoD = filho->filhoDireita;
+        pai->filhoEsquerda = filhoD;
+        filho->filhoDireita = pai;
 
+        if (pai == this->raiz) {
+            this->raiz = filho;
+        }
     }
 
     void rotacaoEsquerdaSimples(Nodo<T>* raiz) {   
-        
-        Nodo<T>* tmp = raiz->filhoEsquerda;
-        Nodo<T>* tmp2 = raiz;
-        raiz->filhoEsquerda = tmp->filhoEsquerda;
-        tmp->filhoEsquerda = tmp2;
+        Nodo<T>* pai = retornaPai(raiz);
+        Nodo<T>* filho = pai->filhoDireita;
+        Nodo<T>* filhoE = filho->filhoEsquerda;
+        pai->filhoDireita = filhoE;
+        filho->filhoEsquerda = pai;
+
+        if (pai == this->raiz) {
+            this->raiz = filho;
+        }
     }
 
-    Nodo<T>* returnaPai(Nodo<T>* raiz) {
-        if (raiz->filhoEsquerda == raiz || raiz->filhoDireita == raiz) {
-            return raiz;
+    Nodo<T>* retornaPai(Nodo<T>* filho) {   
+        Nodo<T>* raiz = this->raiz;
+        
+        while (raiz != nullptr && raiz != filho){
+            // Esquerda ou direita.
+            if (raiz->chave < filho->chave) {
+                raiz = raiz->filhoDireita;
+            } else { 
+                raiz = raiz->filhoEsquerda;
+            }
         }
-        if (raiz->chave < chave->chave) {
-            removerAux(raiz->filhoDireita);
-        } else {
-            removerAux(raiz->filhoEsquerda);
-        }
+
+        return raiz;   
     }
     // atualizar altura ////////////////////////////////////
     void atualizarAltura(Nodo<T>* raiz) {
         int altEsq, altDir;
-        altEsq = -1;
+        altEsq = altDir = -1;
+
         if (raiz->filhoEsquerda) {
             altEsq = raiz->filhoEsquerda->altura;
         }
         
-        altDir = -1;
         if (raiz->filhoDireita) {
             altDir = raiz->filhoDireita->altura;
         }
+
         raiz->altura = std::max(altEsq, altDir) + 1;
     }
 
