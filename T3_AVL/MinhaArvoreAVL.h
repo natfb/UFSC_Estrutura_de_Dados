@@ -76,8 +76,8 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
     void remover(T chave) {
         if (!contem(chave))
             return;
-
-        
+        Nodo<T>* raiz = this->raiz;
+        removerAux(chave, raiz);
     };
 
     std::optional<T> filhoEsquerdaDe(T chave) const {
@@ -289,14 +289,65 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
 
     //remocao ////////////////////////////////////////////////
     void removerAux(T chave, Nodo<T>* raiz) {
-        if (raiz->chave == chave) {
-
+        //se for folha
+        if (raiz->chave == chave && raiz->filhoDireita == nullptr && raiz->filhoEsquerda == nullptr) {
+            Nodo<T>* pai = retornaPai(raiz);
+            if (pai->chave > raiz->chave) {
+                pai->filhoEsquerda = nullptr;
+            } else {
+                pai->filhoDireita = nullptr;
+            }
+            delete raiz;
+        } 
+        //se nao tiver filho a direita
+        else if (raiz->chave == chave && raiz->filhoDireita == nullptr) {
+            Nodo<T>* pai = retornaPai(raiz);
+            if (pai->chave > raiz->chave) {
+                pai->filhoEsquerda = raiz->filhoEsquerda;
+            } else {
+                pai->filhoDireita = raiz->filhoEsquerda;
+            }
+            delete raiz;
+        } 
+        //se tiver filho a direita
+        else if (raiz->chave == chave && raiz->filhoDireita != nullptr) {
+            Nodo<T>* menor = Menor(raiz);
+            Nodo<T>* pai = retornaPai(raiz);
+            
+            if (pai->chave > raiz->chave) {
+                pai->filhoEsquerda = menor;
+            } else {
+                pai->filhoDireita = menor;
+            }
+            Nodo<T>* tmp = raiz;
+            delete raiz;
         }
+
         if (raiz->chave < chave) {
             removerAux(chave, raiz->filhoDireita);
         } else {
             removerAux(chave, raiz->filhoEsquerda);
         }
+
+        atualizarAltura(raiz);
+
+    }
+    Nodo<T>* Menor(Nodo<T>* nodo) {
+        int menorNum = nodo->chave;
+        Nodo<T>* raiz = this->raiz;
+        Nodo<T>* menor = this->raiz;
+        
+        while (raiz != nullptr) {
+            if(raiz->chave < menor->chave) {
+                menor = raiz->filhoDireita;
+            }
+            if (raiz->chave < nodo->chave) {
+                raiz = raiz->filhoDireita;
+            } else { 
+                raiz = raiz->filhoEsquerda;
+            }
+        }
+        return raiz;
     }
 };
 
