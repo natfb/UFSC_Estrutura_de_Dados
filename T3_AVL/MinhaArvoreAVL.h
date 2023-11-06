@@ -74,8 +74,10 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
     };
       
     void remover(T chave) {
-        if (!contem(chave))
-            return;
+        if (!contem(chave)){
+            return;    
+        }
+
         Nodo<T>* raiz = this->raiz;
         removerAux(chave, raiz);
     };
@@ -214,27 +216,40 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
         }
 
         atualizarAltura(raiz);
-        int altEsq, altDir;
-        altEsq = altDir = -1;
-
-        if (raiz->filhoEsquerda) {
-            altEsq = raiz->filhoEsquerda->altura;
-        }
-
-        if (raiz->filhoDireita) {
-            altDir = raiz->filhoDireita->altura;
-        }
-        if (altEsq - altDir > 1) {
-            rotacaoDireitaSimples(raiz);
-            atualizarAltura(raiz);
-        } else if (altEsq - altDir < -1) {
+        
+        int bRaiz, bEsq, bDir;
+        bRaiz = balanco(raiz);
+        bEsq = balanco(raiz->filhoEsquerda);
+        bDir = balanco(raiz->filhoDireita);
+        //completamente errado
+        if (bRaiz == 2 && bEsq >= 0) {
+            rotacaoDireitaSimples(raiz);      
+        } else if (bRaiz == -2 && bDir <= 0) {
             rotacaoEsquerdaSimples(raiz);
-            atualizarAltura(raiz);
+        } else if (bRaiz == 2 && bEsq < 0) {
+            rotacaoEsquerdaDireita(raiz);
+        } else if (bRaiz == -2 && bDir > 0) {
+            rotacaoDireitaEsquerda(raiz);
         }
+        atualizarAltura(raiz);
+    }
+
+    int balanco(Nodo<T>* nodo) {
+        int altEsq, altDir;
+        
+        if (nodo == nullptr) {
+            return 0;
+        } 
+        
+        (nodo->filhoEsquerda) ? altEsq = nodo->filhoEsquerda->altura : altEsq = -1;
+
+        (nodo->filhoDireita) ? (altDir = nodo->filhoDireita->altura) : altDir = -1;
+
+        return altEsq - altDir;
     }
 
     void rotacaoDireitaSimples(Nodo<T>* raiz) {
-        Nodo<T>* pai = retornaPai(raiz);
+        Nodo<T>* pai = raiz;
         Nodo<T>* filho = pai->filhoEsquerda;
         Nodo<T>* filhoD = filho->filhoDireita;
         pai->filhoEsquerda = filhoD;
@@ -246,7 +261,7 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
     }
 
     void rotacaoEsquerdaSimples(Nodo<T>* raiz) {   
-        Nodo<T>* pai = retornaPai(raiz);
+        Nodo<T>* pai = raiz;
         Nodo<T>* filho = pai->filhoDireita;
         Nodo<T>* filhoE = filho->filhoEsquerda;
         pai->filhoDireita = filhoE;
@@ -257,20 +272,41 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
         }
     }
 
-    Nodo<T>* retornaPai(Nodo<T>* filho) {   
-        Nodo<T>* raiz = this->raiz;
+    void rotacaoEsquerdaDireita(Nodo<T>* raiz) {
+
+    }
+
+    void rotacaoDireitaEsquerda(Nodo<T>* raiz) {
         
-        while (raiz != nullptr && raiz != filho){
-            // Esquerda ou direita.
-            if (raiz->chave < filho->chave) {
+    }
+
+    Nodo<T>* paiDe(Nodo<T>* filho) {   
+        if (!contem(filho->chave)) {
+            return nullptr;
+        }
+
+        Nodo<T>* raiz = this->raiz;
+        Nodo<T>* pai = nullptr;
+        Nodo<T>* tmp = nullptr;
+
+        while (pai == nullptr) {
+            // Esquerda ou direita. 
+            tmp = raiz;
+
+            if (raiz->chave <= filho->chave) {
                 raiz = raiz->filhoDireita;
             } else { 
                 raiz = raiz->filhoEsquerda;
             }
+
+            if (raiz == filho) {
+                pai = tmp;
+            } 
         }
 
-        return raiz;   
+        return pai;
     }
+
     // atualizar altura ////////////////////////////////////
     void atualizarAltura(Nodo<T>* raiz) {
         int altEsq, altDir;
@@ -289,65 +325,79 @@ class MinhaArvoreAVL final : public ArvoreBinariaDeBusca<T>
 
     //remocao ////////////////////////////////////////////////
     void removerAux(T chave, Nodo<T>* raiz) {
-        //se for folha
+        //remover folha
         if (raiz->chave == chave && raiz->filhoDireita == nullptr && raiz->filhoEsquerda == nullptr) {
-            Nodo<T>* pai = retornaPai(raiz);
-            if (pai->chave > raiz->chave) {
-                pai->filhoEsquerda = nullptr;
+            if (raiz == this->raiz) {
+                this->raiz = nullptr;
             } else {
-                pai->filhoDireita = nullptr;
+                Nodo<T>* pai = paiDe(raiz);
+                
+                if (pai->chave > raiz->chave) {
+                    pai->filhoEsquerda = nullptr;
+                } else {
+                    pai->filhoDireita = nullptr;
+                }   
             }
-            delete raiz;
+            delete raiz; 
+            return;
         } 
-        //se nao tiver filho a direita
+        //remover nodo sem filho a direita
         else if (raiz->chave == chave && raiz->filhoDireita == nullptr) {
-            Nodo<T>* pai = retornaPai(raiz);
+            if (raiz == this->raiz) {
+                this->raiz = raiz->filhoEsquerda;
+                delete raiz;
+                return;
+            }
+            
+            Nodo<T>* pai = paiDe(raiz);
+            
             if (pai->chave > raiz->chave) {
                 pai->filhoEsquerda = raiz->filhoEsquerda;
             } else {
                 pai->filhoDireita = raiz->filhoEsquerda;
             }
             delete raiz;
+            return;
         } 
-        //se tiver filho a direita
+        //remover nodo com filho a direita
         else if (raiz->chave == chave && raiz->filhoDireita != nullptr) {
-            Nodo<T>* menor = Menor(raiz);
-            Nodo<T>* pai = retornaPai(raiz);
-            
-            if (pai->chave > raiz->chave) {
-                pai->filhoEsquerda = menor;
-            } else {
-                pai->filhoDireita = menor;
-            }
-            Nodo<T>* tmp = raiz;
-            delete raiz;
+            removerComFilhoDir(raiz, raiz->filhoDireita);
         }
-
-        if (raiz->chave < chave) {
+        else if (raiz->chave < chave) {
             removerAux(chave, raiz->filhoDireita);
         } else {
             removerAux(chave, raiz->filhoEsquerda);
         }
 
         atualizarAltura(raiz);
-
     }
-    Nodo<T>* Menor(Nodo<T>* nodo) {
-        int menorNum = nodo->chave;
-        Nodo<T>* raiz = this->raiz;
-        Nodo<T>* menor = this->raiz;
-        
-        while (raiz != nullptr) {
-            if(raiz->chave < menor->chave) {
-                menor = raiz->filhoDireita;
+
+    void removerComFilhoDir(Nodo<T>* remover, Nodo<T>* raiz) {
+
+        if (raiz->filhoEsquerda == nullptr) {
+            remover->chave = raiz->chave;
+            
+            if (raiz->filhoDireita != nullptr) {
+                removerComFilhoDir(raiz, raiz->filhoDireita);
+                return;
+            } 
+            else if (raiz->filhoDireita == nullptr) {
+                Nodo<T>* pai = paiDe(raiz);
+                
+                if (pai->chave > raiz->chave) {
+                    pai->filhoEsquerda = nullptr;
+                } else {
+                    pai->filhoDireita = nullptr;
+                }
+
+                delete raiz;
+                atualizarAltura(pai);
             }
-            if (raiz->chave < nodo->chave) {
-                raiz = raiz->filhoDireita;
-            } else { 
-                raiz = raiz->filhoEsquerda;
-            }
+        } else {
+            removerComFilhoDir(remover, raiz->filhoEsquerda);
         }
-        return raiz;
+  
+        atualizarAltura(remover);
     }
 };
 
