@@ -15,7 +15,6 @@ class MinhaTabelaEspalhamento final:
     public TabelaEspalhamentoAbstrata<T, capac>
 {
     public:
-        //virtual ~MinhaTabelaEspalhamento();
 
         virtual std::size_t capacidade() const {
             return this->tabela.max_size();
@@ -53,7 +52,7 @@ class MinhaTabelaEspalhamento final:
         };
     
     protected:
-        //Implemente as funções protegidas aqui
+
         virtual std::size_t funcaoEspalhamento(T dado) const {
             size_t chave = codigoEspalhamento(dado);
             return chave % capacidade();
@@ -70,7 +69,6 @@ class MinhaTabelaEspalhamento final:
         template<typename U>
         std::size_t codigoEspalhamento(U integral) const
         {
-            //Implemente aqui. Dica use std::is_integral_v<U> para garantir que U é um tipo integral
             if (std::is_integral_v<U>) {
                 return static_cast<std::size_t>(integral);
             } else {
@@ -81,9 +79,11 @@ class MinhaTabelaEspalhamento final:
         std::size_t codigoEspalhamento(std::string const& string) const
         {
             size_t valor = 0;
+            
             for (int i = 0; i <= string.length() - 1; i++) {
                 valor += string[i] * std::pow(31, string.length() - (i + 1));
             }
+
             return valor;
         }
         
